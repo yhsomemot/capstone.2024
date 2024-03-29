@@ -1,4 +1,7 @@
 const express = require("express");
+const {
+    fetchUsers
+} = require("../db/users.js")
 
 const router = express.Router();
 
@@ -11,7 +14,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-    res.send(`updating a user with this data: ${JSON.stringigy(req.body)}`)
+    res.send(`updating a user with id ${req.params.id} this data: ${JSON.stringify(req.body)}`)
 });
 
 router.delete("/:id", (req, res) => {
