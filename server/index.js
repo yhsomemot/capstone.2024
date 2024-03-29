@@ -1,5 +1,7 @@
 const express = require("express");
 const { client } = require('./client.js')
+const { createTables, seedUsers } = require("./db/seed.js")
+const { fetchUsers } = require("./db/users.js")
 
 const userRouter = require("./api/users");
 const productRouter = require("./api/products")
@@ -9,11 +11,19 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 
+
 const init = async () => {
     const port = process.env.PORT || 3000
     await client.connect()
+    console.log('connected to database');
+
+    await createTables();
+    console.log('tables created');
+
+    await seedUsers();
+    console.log("users", await fetchUsers());
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))
   }
   
-  init()
+  init();

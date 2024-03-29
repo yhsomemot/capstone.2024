@@ -1,16 +1,26 @@
 const express = require("express");
 const {
-    fetchUsers
+    fetchUsers,
+    createUser
 } = require("../db/users.js")
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("getting all users")
+router.get("/", async (req, res, next) => {
+    try {
+        res.send(await fetchUsers());
+      }
+      catch (ex) {
+        next(ex);
+      }
 });
-
-router.post("/", (req, res) => {
-    res.send(`creating a user with this data: ${JSON.stringify(req.body)}`)
+router.post("/", async (req, res, next) => {
+    try {
+        res.send(await createUser(req.body));
+      }
+      catch (ex) {
+        next(ex);
+      }
 });
 
 router.put("/:id", (req, res) => {
