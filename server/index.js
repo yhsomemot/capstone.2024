@@ -1,10 +1,12 @@
 const express = require("express");
 const { client } = require('./client.js')
-const { createTables, seedUsers } = require("./db/seed.js")
+const { createTables, seedUsers, seedProducts } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
+const { fetchProducts } = require("./db/products.js");
 
 const userRouter = require("./api/users");
-const productRouter = require("./api/products")
+const productRouter = require("./api/products");
+
 
 const app = express();
 app.use(express.json());
@@ -22,6 +24,9 @@ const init = async () => {
 
     await seedUsers();
     console.log("users", await fetchUsers());
+
+    await seedProducts();
+    console.log("products", await fetchProducts())
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))
   }

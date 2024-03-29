@@ -1,24 +1,47 @@
 const express = require("express");
 const {
-    fetchProducts
+    fetchProducts,
+    fetchSingleProduct,
+    createProduct
 } = require("../db/products.js")
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("getting all products")
+router.get("/", async (req, res, next) => {
+    try {
+        res.send(await fetchProducts());
+      }
+      catch (ex) {
+        next(ex);
+      }
 });
-
-router.post("/", (req, res) => {
-    res.send(`creating a products with this data: ${JSON.stringify(req.body)}`)
+router.get("/:id", async (req, res, next) => {
+    try {
+        res.send(await fetchSingleProduct({id: req.params.id}));
+      } catch (ex) {
+        next(ex);
+      }
 });
-
-router.put("/:id", (req, res) => {
-    res.send(`updating a products with id ${req.params.id} this data: ${JSON.stringify(req.body)}`)
+router.post("/", async (req, res, next) => {
+    try {
+        res.status(201).send(await createProduct(req.body));
+      } catch (ex) {
+        next(ex);
+      }
 });
-
-router.delete("/:id", (req, res) => {
-    res.send(`deleted products with id ${req.params.id}`)
+router.put("/:id", async (req, res, next) => {
+    try {
+        res.status(201).send(await updateProduct({...req.body, id: req.params.id}));
+      } catch (ex) {
+        next(ex);
+      }
+});
+router.delete("/:id", async (req, res, next) => {
+    try {
+        res.status(204).send(await deleteProduct({id: req.params.id}));
+      } catch (ex) {
+        next(ex);
+      }
 });
 
 module.exports = router;

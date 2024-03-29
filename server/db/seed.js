@@ -1,5 +1,6 @@
 const { client } = require('../client.js')
 const { createUser } = require("./users.js")
+const { createProduct } = require("./products.js")
 
 const createTables = async () => {
     const SQL = `
@@ -36,16 +37,25 @@ const createTables = async () => {
   };
 
 const seedUsers = async () => {
-    const [moe, lucy, ethyl, curly, foo, bar, bazz, quq, fip] = await Promise.all([
+    const [moe, lucy, ethyl, curly] = await Promise.all([
         createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
         createUser({ email: 'lucy@email.com', password: 'l_pw', address: 'Canada', is_admin: true }),
         createUser({ email: 'ethyl@email.com', password: 'e_pw', address: 'Norway', is_admin: false }),
-        createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false }),
+        createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false })
     ]);
   };
-
+const seedProducts = async () => {
+    const [foo, bar, bazz, quq, fip] = await Promise.all([
+        createProduct({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20 }),
+        createProduct({ name: 'bar', price: 14 }),
+        createProduct({ name: 'bazz' }),
+        createProduct({ name: 'quq' }),
+        createProduct({ name: 'fip' }),
+    ]);
+  }
 
 module.exports = {
     createTables,
-    seedUsers
+    seedUsers,
+    seedProducts
 }
