@@ -3,7 +3,7 @@ const { createUser } = require("./users.js")
 
 const createTables = async () => {
     const SQL = `
-        DROP TABLE IF EXISTS carted_products;
+        DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS products;
         CREATE TABLE users(
@@ -23,7 +23,7 @@ const createTables = async () => {
           inventory INTEGER DEFAULT 0,
           PRIMARY KEY (id)
         );
-        CREATE TABLE carted_products(
+        CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
           product_id UUID REFERENCES products(id) NOT NULL,
@@ -47,5 +47,5 @@ const seedUsers = async () => {
 
 module.exports = {
     createTables,
-    seedUsers,
+    seedUsers
 }

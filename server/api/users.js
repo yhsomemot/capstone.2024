@@ -1,7 +1,9 @@
 const express = require("express");
 const {
     fetchUsers,
-    createUser
+    createUser,
+    updateUser,
+    deleteUser
 } = require("../db/users.js")
 
 const router = express.Router();
@@ -22,13 +24,20 @@ router.post("/", async (req, res, next) => {
         next(ex);
       }
 });
-
-router.put("/:id", (req, res) => {
-    res.send(`updating a user with id ${req.params.id} this data: ${JSON.stringify(req.body)}`)
+router.put("/:id", async (req, res, next) => {
+    try {
+        res.status(201).send(await updateUser({...req.body, id: req.params.id}));
+      } catch (ex) {
+        next(ex);
+      }
 });
 
-router.delete("/:id", (req, res) => {
-    res.send(`deleted user with id ${req.params.id}`)
+router.delete("/:id", async (req, res, next) => {
+    try {
+        res.status(204).send(await deleteUser({id: req.params.id}));
+      } catch (ex) {
+        next(ex);
+      }
 });
 
 module.exports = router;
