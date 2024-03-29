@@ -6,12 +6,14 @@ const { fetchProducts } = require("./db/products.js");
 
 const userRouter = require("./api/users");
 const productRouter = require("./api/products");
+const orderRouter = require("./api/orders");
 
 
 const app = express();
 app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 
 const init = async () => {
@@ -23,10 +25,10 @@ const init = async () => {
     console.log('tables created');
 
     await seedUsers();
-    console.log("users", await fetchUsers());
+    // console.log("users", await fetchUsers());
 
     await seedProducts();
-    console.log("products", await fetchProducts())
+    // console.log("products", await fetchProducts())
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))
   }

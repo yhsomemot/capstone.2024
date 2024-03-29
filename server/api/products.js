@@ -2,7 +2,9 @@ const express = require("express");
 const {
     fetchProducts,
     fetchSingleProduct,
-    createProduct
+    createProduct,
+    updateProduct, 
+    deleteProduct
 } = require("../db/products.js")
 
 const router = express.Router();

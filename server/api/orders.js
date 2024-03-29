@@ -1,13 +1,35 @@
 const express = require("express");
 const {
-    fetchOrders
+    fetchAllOrders
 } = require("../db/orders.js")
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("getting all orders")
+router.get("/", async (req, res, next) => {
+    try {
+        res.send(await fetchAllOrders());
+      }
+      catch (ex) {
+        next(ex);
+      }
 });
+router.get("/user/:id", async (req, res, next) => {
+    try {
+        res.send(await fetchAllOrders());
+      }
+      catch (ex) {
+        next(ex);
+      }
+});
+
+// app.get('/api/users/:userId/cartedProducts', async (req, res, next) => {
+//     try {
+//       res.send(await fetchCartedProducts(req.params.userId));
+//     }
+//     catch (ex) {
+//       next(ex);
+//     }
+//   });
 
 router.post("/", (req, res) => {
     res.send(`creating a orders with this data: ${JSON.stringify(req.body)}`)
