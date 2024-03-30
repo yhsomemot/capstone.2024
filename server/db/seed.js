@@ -1,6 +1,7 @@
 const { client } = require('../client.js')
 const { createUser } = require("./users.js")
-const { createProduct } = require("./products.js")
+const { createProduct } = require("./products.js");
+const { createOrders } = require('./orders.js');
 
 const createTables = async () => {
     const SQL = `
@@ -34,7 +35,7 @@ const createTables = async () => {
         );
       `;
     await client.query(SQL);
-  };
+};
 
 const seedUsers = async () => {
     const [moe, lucy, ethyl, curly] = await Promise.all([
@@ -43,7 +44,7 @@ const seedUsers = async () => {
         createUser({ email: 'ethyl@email.com', password: 'e_pw', address: 'Norway', is_admin: false }),
         createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false })
     ]);
-  };
+};
 const seedProducts = async () => {
     const [foo, bar, bazz, quq, fip] = await Promise.all([
         createProduct({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20 }),
@@ -52,10 +53,18 @@ const seedProducts = async () => {
         createProduct({ name: 'quq' }),
         createProduct({ name: 'fip' }),
     ]);
-  }
+};
+// const seedOrders = async () => {
+//     const [moe, lucy, ethyl, curly, foo, bar, bazz, quq, fip]  = await Promise.all([
+//         createOrders({ user_id: moe.id, product_id: foo.id, qty: 1 }),
+//         createOrders({ user_id: curly.id, product_id: bazz.id, qty: 6 }),
+//         createOrders({ user_id: curly.id, product_id: foo.id, qty: 4 })
+//       ]);
+// };
 
 module.exports = {
     createTables,
     seedUsers,
-    seedProducts
+    seedProducts,
+    // seedOrders
 }

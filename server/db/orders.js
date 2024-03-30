@@ -3,6 +3,7 @@ const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const fetchAllOrders = async () => {
     const SQL = `
       SELECT * FROM orders

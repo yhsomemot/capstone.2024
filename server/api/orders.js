@@ -7,10 +7,13 @@ const {
     deleteWholeOrder,
     deleteOrderProducts
 } = require("../db/orders.js")
+const { isLoggedIn }=require("../db/auth.js")
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+//route: /api/orders
+
+router.get("/", isLoggedIn, async (req, res, next) => {
     try {
         res.send(await fetchAllOrders());
       }
