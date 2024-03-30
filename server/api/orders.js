@@ -52,6 +52,7 @@ router.delete("/user/:userId/product/:id", async (req, res, next) => {
         next(ex);
       }
 });
+//delete after check out.
 router.delete("/:id/user/:userId", async (req, res, next) => {
     try {
         await deleteWholeOrder({ id: req.params.id, user_id: req.params.userId });
