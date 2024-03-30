@@ -3,6 +3,7 @@ const { client } = require('./client.js')
 const { createTables, seedUsers, seedProducts } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
 const { fetchProducts } = require("./db/products.js");
+const { fetchOrders } = require("./db/orders.js");
 
 const userRouter = require("./api/users");
 const productRouter = require("./api/products");
