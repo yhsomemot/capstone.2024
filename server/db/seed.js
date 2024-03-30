@@ -1,6 +1,6 @@
 const { client } = require('../client.js')
 const { createUser } = require("./users.js")
-const { createBook } = require("./book.js");
+const { createBook } = require("./books.js");
 const { createOrders } = require('./orders.js');
 
 //add a cart table? to keep track of status? no if delete cart is a thing.
@@ -8,7 +8,7 @@ const createTables = async () => {
     const SQL = `
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS book;
+        DROP TABLE IF EXISTS books;
         CREATE TABLE users(
           id UUID DEFAULT gen_random_uuid(),
           email VARCHAR(100) UNIQUE NOT NULL,
@@ -18,7 +18,7 @@ const createTables = async () => {
           is_admin BOOLEAN DEFAULT FALSE,
           PRIMARY KEY (id)
         );
-        CREATE TABLE book(
+        CREATE TABLE books(
           id UUID DEFAULT gen_random_uuid(),
           name VARCHAR(100) UNIQUE NOT NULL,
           price INTEGER DEFAULT 0,
@@ -29,9 +29,9 @@ const createTables = async () => {
         CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
-          book_id UUID REFERENCES book(id) NOT NULL,
+          book_id UUID REFERENCES books(id) NOT NULL,
           qty INTEGER DEFAULT 1,
-          CONSTRAINT unique_user_and_product_id UNIQUE (book_id, user_id),
+          CONSTRAINT unique_user_and_book_id UNIQUE (book_id, user_id),
           PRIMARY KEY (id)
         );
       `;
