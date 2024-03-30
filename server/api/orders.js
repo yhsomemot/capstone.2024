@@ -29,24 +29,24 @@ router.get("/user/:id", async (req, res, next) => {
         next(ex);
       }
 });
-router.post("/user/:userId/product/:id", async (req, res, next) => {
+router.post("/user/:userId/book/:id", async (req, res, next) => {
     try {
-        res.status(201).send(await createOrders({ user_id: req.params.userId, product_id: req.body.product_id, qty: req.body.qty }));
+        res.status(201).send(await createOrders({ user_id: req.params.userId, book_id: req.body.book_id, qty: req.body.qty }));
       }
       catch (ex) {
         next(ex);
       }
 });
-router.put("/user/:userId/product/:id", async (req, res, next) => {
+router.put("/user/:userId/book/:id", async (req, res, next) => {
     try {
-        res.status(201).send(await updateOrders({ qty: req.body.qty, product_id: req.params.id, user_id: req.params.userId }));
+        res.status(201).send(await updateOrders({ qty: req.body.qty, book_id: req.params.id, user_id: req.params.userId }));
       } catch (ex) {
         next(ex);
       }
 });
-router.delete("/user/:userId/product/:id", async (req, res, next) => {
+router.delete("/user/:userId/book/:id", async (req, res, next) => {
     try {
-        await deleteOrderProducts({ user_id: req.params.userId, product_id: req.params.id });
+        await deleteOrderProducts({ user_id: req.params.userId, book_id: req.params.id });
         res.sendStatus(204);
       } catch (ex) {
         next(ex);

@@ -1,13 +1,14 @@
 const { client } = require('../client.js')
 const { createUser } = require("./users.js")
-const { createProduct } = require("./products.js");
+const { createBook } = require("./book.js");
 const { createOrders } = require('./orders.js');
 
+//add a cart table? to keep track of status? no if delete cart is a thing.
 const createTables = async () => {
     const SQL = `
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS book;
         CREATE TABLE users(
           id UUID DEFAULT gen_random_uuid(),
           email VARCHAR(100) UNIQUE NOT NULL,
@@ -17,7 +18,7 @@ const createTables = async () => {
           is_admin BOOLEAN DEFAULT FALSE,
           PRIMARY KEY (id)
         );
-        CREATE TABLE products(
+        CREATE TABLE book(
           id UUID DEFAULT gen_random_uuid(),
           name VARCHAR(100) UNIQUE NOT NULL,
           price INTEGER DEFAULT 0,
@@ -28,9 +29,9 @@ const createTables = async () => {
         CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
-          product_id UUID REFERENCES products(id) NOT NULL,
+          book_id UUID REFERENCES book(id) NOT NULL,
           qty INTEGER DEFAULT 1,
-          CONSTRAINT unique_user_and_product_id UNIQUE (product_id, user_id),
+          CONSTRAINT unique_user_and_product_id UNIQUE (book_id, user_id),
           PRIMARY KEY (id)
         );
       `;
@@ -45,26 +46,26 @@ const seedUsers = async () => {
         createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false })
     ]);
 };
-const seedProducts = async () => {
+const seedBooks = async () => {
     const [foo, bar, bazz, quq, fip] = await Promise.all([
-        createProduct({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20 }),
-        createProduct({ name: 'bar', price: 14 }),
-        createProduct({ name: 'bazz' }),
-        createProduct({ name: 'quq' }),
-        createProduct({ name: 'fip' }),
+        createBook({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20 }),
+        createBook({ name: 'bar', price: 14 }),
+        createBook({ name: 'bazz' }),
+        createBook({ name: 'quq' }),
+        createBook({ name: 'fip' }),
     ]);
 };
 // const seedOrders = async () => {
 //     const [moe, lucy, ethyl, curly, foo, bar, bazz, quq, fip]  = await Promise.all([
-//         createOrders({ user_id: moe.id, product_id: foo.id, qty: 1 }),
-//         createOrders({ user_id: curly.id, product_id: bazz.id, qty: 6 }),
-//         createOrders({ user_id: curly.id, product_id: foo.id, qty: 4 })
+//         createOrders({ user_id: moe.id, book_id: foo.id, qty: 1 }),
+//         createOrders({ user_id: curly.id, book_id: bazz.id, qty: 6 }),
+//         createOrders({ user_id: curly.id, book_id: foo.id, qty: 4 })
 //       ]);
 // };
 
 module.exports = {
     createTables,
     seedUsers,
-    seedProducts,
+    seedBooks,
     // seedOrders
 }
