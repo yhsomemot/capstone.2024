@@ -8,7 +8,9 @@ export function Books() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/books/`);
+                const response = await fetch(`${API_URL}/api/books/`, 
+                { method: "GET", mode: 'cors', headers: { 'Content-Type': 'application/json',}}
+                );
                 const result = await response.json();
                 setBooks(result.books)
             } catch (error) {
