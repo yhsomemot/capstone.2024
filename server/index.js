@@ -18,6 +18,14 @@ app.use("/api/books", bookRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/auth", authRouter);
 
+const cors = require('cors')
+ app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    withCredentials: true,
+}))
 
 const init = async () => {
     const port = process.env.PORT || 3000
@@ -31,7 +39,7 @@ const init = async () => {
     // console.log("users", await fetchUsers());
 
     await seedBooks();
-    // console.log("books", await fetchBooks())
+    console.log("books", await fetchBooks())
 
     // await seedOrders();
     // console.log("books", await fetchOrders())

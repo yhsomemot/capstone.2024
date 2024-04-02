@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../App";
 
 export function Books() {
     const [books, setBooks] = useState([]);
@@ -7,7 +8,7 @@ export function Books() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch('/api/books');
+                const response = await fetch(`${API_URL}/api/books/`);
                 const result = await response.json();
                 setBooks(result.books)
             } catch (error) {
@@ -17,5 +18,7 @@ export function Books() {
         fetchBooks()
     }, []);
 
-    return ()
+    return (
+        <div></div>
+    )
 }
