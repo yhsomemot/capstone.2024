@@ -25,7 +25,7 @@ export function Books() {
             <h1>Books</h1>
             <ul>
                 {books.map((book) => {
-                    return <li id="bookImg" key={book.id}>
+                    return <li id="bookImg" key={book.id}>{book.name}
                         <Link to={`/books/${book.id}`}>
                     <img src={book.coverimage} />
                 </Link>

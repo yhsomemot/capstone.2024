@@ -1,6 +1,6 @@
 const express = require("express");
 const { client } = require('./client.js')
-const { createTables, seedBooks, seedTable } = require("./db/seed.js")
+const { createTables, seedBooks, seedTable, seedUsers } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
 const { fetchBooks } = require("./db/books.js");
 const { fetchOrders } = require("./db/orders.js");
@@ -35,10 +35,10 @@ const init = async () => {
     // await seedTable();
     // console.log("orders", await fetchOrders())
 
-    // await seedUsers();
+    await seedUsers();
     // console.log("users", await fetchUsers());
 
-    // await seedBooks();
+    await seedBooks();
     // console.log("books", await fetchBooks());
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))

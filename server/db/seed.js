@@ -46,26 +46,26 @@ const createTables = async () => {
       `;
   await client.query(SQL);
 };
-const seedTable = async () => {
-  const [moe, lucy, ethyl, curly] = await Promise.all([
-    createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
-    createUser({ email: 'lucy@email.com', password: 'l_pw', address: 'Canada', is_admin: true }),
-    createUser({ email: 'ethyl@email.com', password: 'e_pw', address: 'Norway', is_admin: false }),
-    createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false })
-  ]);
-  const [foo, bar, bazz, quq, fip] = await Promise.all([
-    createBook({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'bar', price: 14, coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'bazz', coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'quq', coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'fip', coverimage: 'https://picsum.photos/200/300' })
-  ]);
-  await Promise.all([
-    createOrders({ user_id: moe.id, book_id: foo.id, qty: 1 }),
-    createOrders({ user_id: curly.id, book_id: bazz.id, qty: 6 }),
-    createOrders({ user_id: curly.id, book_id: foo.id, qty: 4 })
-  ]);
-}
+// const seedTable = async () => {
+//   const [moe, lucy, ethyl, curly] = await Promise.all([
+//     createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
+//     createUser({ email: 'lucy@email.com', password: 'l_pw', address: 'Canada', is_admin: true }),
+//     createUser({ email: 'ethyl@email.com', password: 'e_pw', address: 'Norway', is_admin: false }),
+//     createUser({ email: 'curly@email.com', password: 'c_pw', address: 'Miami', is_admin: false })
+//   ]);
+//   const [foo, bar, bazz, quq, fip] = await Promise.all([
+//     createBook({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300' }),
+//     createBook({ name: 'bar', price: 14, coverimage: 'https://picsum.photos/200/300' }),
+//     createBook({ name: 'bazz', coverimage: 'https://picsum.photos/200/300' }),
+//     createBook({ name: 'quq', coverimage: 'https://picsum.photos/200/300' }),
+//     createBook({ name: 'fip', coverimage: 'https://picsum.photos/200/300' })
+//   ]);
+//   await Promise.all([
+//     createOrders({ user_id: moe.id, book_id: foo.id, qty: 1 }),
+//     createOrders({ user_id: curly.id, book_id: bazz.id, qty: 6 }),
+//     createOrders({ user_id: curly.id, book_id: foo.id, qty: 4 })
+//   ]);
+// }
 const seedUsers = async () => {
   const [moe, lucy, ethyl, curly] = await Promise.all([
     createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
@@ -88,5 +88,5 @@ module.exports = {
   createTables,
   seedUsers,
   seedBooks,
-  seedTable
+  // seedTable
 }
