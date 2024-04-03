@@ -3,24 +3,37 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../App";
 
 export function Books() {
+
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/books/`, 
-                { method: "GET", mode: 'cors', headers: { 'Content-Type': 'application/json',}}
-                );
+                const response = await fetch(`${API_URL}/api/books/`);
                 const result = await response.json();
-                setBooks(result.books)
+                setBooks(result)
+                console.log(result)
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchBooks()
+        fetchBooks();
     }, []);
 
     return (
-        <div></div>
+        <>
+            <h1>Books</h1>
+            <ul>
+                {books.map((book) => {
+                    return <li id="bookImg" key={book.id}>
+                        <Link to={`/books/${book.id}`}>
+                    <img src={book.coverimage} />
+                </Link>
+
+                </li>
+                })}
+            </ul>
+            
+        </>
     )
 }

@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const fetchAllOrders = async () => {
+const fetchOrders = async () => {
     const SQL = `
       SELECT * FROM orders
     `;
     const result = await client.query(SQL);
     return result.rows;
   };
-const fetchOrders = async ({ user_id }) => {
+const fetchSingleOrder = async ({ user_id }) => {
     const SQL = `
       SELECT * FROM orders WHERE user_id = $1
     `;
@@ -51,7 +51,7 @@ const deleteWholeOrder = async ({ user_id, book_id }) => {
   
 
 module.exports = {
-    fetchAllOrders,
+    fetchSingleOrder,
     fetchOrders,
     updateOrders,
     createOrders,

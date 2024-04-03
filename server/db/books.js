@@ -17,21 +17,21 @@ const fetchSingleBook = async ({id}) => {
     const result = await client.query(SQL, [id]);
     return result.rows[0];
   };
-const createBook = async ({ name, price, description, inventory }) => {
+const createBook = async ({ name, price, description, inventory, coverimage }) => {
     const SQL = `
-      INSERT INTO books(id, name, price, description, inventory) VALUES($1, $2, $3, $4, $5) RETURNING *
+      INSERT INTO books(id, name, price, description, inventory, coverimage) VALUES($1, $2, $3, $4, $5, $6) RETURNING *
     `;
-    const result = await client.query(SQL, [uuid.v4(), name, price, description, inventory]);
+    const result = await client.query(SQL, [uuid.v4(), name, price, description, inventory, coverimage]);
     return result.rows[0];
   };
-const updateBook = async ({ name, price, description, inventory, id }) => {
+const updateBook = async ({ name, price, description, inventory, coverimage, id }) => {
     const SQL = `
       UPDATE books
-      SET name=$1, price=$2, description=$3, inventory=$4
-      WHERE id=$5
+      SET name=$1, price=$2, description=$3, inventory=$4, coverimage=$5
+      WHERE id=$6
       RETURNING *
     `;
-    const result = await client.query(SQL,[name, price, description, inventory, id]);
+    const result = await client.query(SQL,[name, price, description, inventory, coverimage, id]);
     console.log(result)
     return result.rows[0];
   };

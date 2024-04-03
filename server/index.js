@@ -1,9 +1,11 @@
 const express = require("express");
 const { client } = require('./client.js')
-const { createTables, seedUsers, seedBooks, seedOrders } = require("./db/seed.js")
+const { createTables, seedBooks, seedTable } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
 const { fetchBooks } = require("./db/books.js");
 const { fetchOrders } = require("./db/orders.js");
+
+const cors = require('cors')
 
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
@@ -12,20 +14,15 @@ const authRouter = require("./api/orders")
 
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/auth", authRouter);
 
-const cors = require('cors')
- app.use(
-  cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-    withCredentials: true,
-}))
+
+
 
 const init = async () => {
     const port = process.env.PORT || 3000
@@ -35,14 +32,14 @@ const init = async () => {
     await createTables();
     console.log('tables created');
 
-    await seedUsers();
+    // await seedTable();
+    // console.log("orders", await fetchOrders())
+
+    // await seedUsers();
     // console.log("users", await fetchUsers());
 
-    await seedBooks();
-    console.log("books", await fetchBooks())
-
-    // await seedOrders();
-    // console.log("books", await fetchOrders())
+    // await seedBooks();
+    // console.log("books", await fetchBooks());
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))
   }
