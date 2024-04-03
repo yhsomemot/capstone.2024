@@ -6,6 +6,7 @@ import { Books } from './components/Books'
 import { Navigations } from './components/Navigation'
 import { SingleBook } from './components/SingleBook'
 import { Register } from './components/Register'
+import { Account } from './components/Account'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/books/:bookId" element={<SingleBook />} />
           <Route path="/register" element={<Register setToken={setToken} />} />
           <Route path="/login" element={<Login setToken={setToken} email={email} setEmail={setEmail}/>} />
+          <Route path="/account" element={<Account token={token} email={email} setEmail={setEmail}/>} />
         </Routes>
       </div>
     </>

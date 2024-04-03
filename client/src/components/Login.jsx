@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../App";
 
 export function Login({ setToken, email, setEmail }) {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export function Login({ setToken, email, setEmail }) {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const response = await fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/login", {
+            const response = await fetch(`${API_URL}/users/login`, {
                 method: "POST",
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify({ email: email, password: password })
