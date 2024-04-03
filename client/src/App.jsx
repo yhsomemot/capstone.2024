@@ -5,22 +5,28 @@ import { Login } from './components/Login'
 import { Books } from './components/Books'
 import { Navigations } from './components/Navigation'
 import { SingleBook } from './components/SingleBook'
+import { Register } from './components/Register'
 
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [email, setEmail] = useState("");
 
   return (
     <>
       <h1>BOOK STORE!</h1>
       <div>
         <Navigations />
-        </div>
+      </div>
 
       <div>
         <Routes>
+          <Route path="/" element={<Books />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/books" element={<Books />}/>
+          <Route path="/books" element={<Books />} />
           <Route path="/books/:bookId" element={<SingleBook />} />
+          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/login" element={<Login setToken={setToken} email={email} setEmail={setEmail}/>} />
         </Routes>
       </div>
     </>

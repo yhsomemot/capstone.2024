@@ -13,6 +13,9 @@ export function Navigations() {
             <Link to="/account" className="account">
                 Account
             </Link>
+            {/* <Link to="/cart" className="cart">
+               Cart
+            </Link> */}
             {/* <span className="hello">Hello, {username} </span> */}
         </div>
     );

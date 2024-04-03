@@ -41,6 +41,7 @@ const createTables = async () => {
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
           order_id UUID REFERENCES orders(id) NOT NULL,
+          CONSTRAINT unique_user_and_order_id UNIQUE (order_id, user_id),
           PRIMARY KEY (id)
           );
       `;

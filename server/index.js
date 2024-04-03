@@ -10,7 +10,7 @@ const cors = require('cors')
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const orderRouter = require("./api/orders");
-const authRouter = require("./api/orders")
+// const authRouter = require("./api/users")
 
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/auth", authRouter);
+// app.use("/api/auth", authRouter);
 
 
 
