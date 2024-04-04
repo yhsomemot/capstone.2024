@@ -17,12 +17,13 @@ export function SingleBook() {
             }
         }
         fetchSingleBook();
-    }, [])
+    }, [bookId])
 
     return (
         <div>
             <img src={book.coverimage} />
             <h2>{book.name}</h2>
+            <h2>{book.author}</h2>
         </div>
     );
 

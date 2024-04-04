@@ -39,7 +39,7 @@ const init = async () => {
     // console.log("users", await fetchUsers());
 
     await seedBooks();
-    // console.log("books", await fetchBooks());
+    console.log("books", await fetchBooks());
   
     app.listen(port, () => console.log(`\nlistening on port ${port}`))
   }

@@ -22,18 +22,19 @@ const createTables = async () => {
           PRIMARY KEY (id)
         );
         CREATE TABLE genre(
-          id UUID DEFAULT gen_random_uuid(),
+          id SERIAL,
           name VARCHAR(100) UNIQUE, 
           PRIMARY KEY (id)
         );
         CREATE TABLE books(
           id UUID DEFAULT gen_random_uuid(),
           name VARCHAR(100) UNIQUE NOT NULL,
+          author VARCHAR(255) NOT NULL,
           price INTEGER DEFAULT 0,
           description VARCHAR(255),
           inventory INTEGER DEFAULT 0,
           coverimage TEXT NOT NULL,
-          genre_name TEXT REFERENCES genre(name),
+          genre_id INTEGER REFERENCES genre(id) NOT NULL,
           PRIMARY KEY (id)
         );
         CREATE TABLE orders(
@@ -51,6 +52,12 @@ const createTables = async () => {
           CONSTRAINT unique_user_and_order_id UNIQUE (order_id, user_id),
           PRIMARY KEY (id)
           );
+
+          INSERT INTO genre (name) VALUES ('Fantasy');
+          INSERT INTO genre (name) VALUES ('Non-Fiction');
+          INSERT INTO genre (name) VALUES ('Fiction');
+          INSERT INTO genre (name) VALUES ('Sci-Fi');
+          INSERT INTO genre (name) VALUES ('Historical');
       `;
   await client.query(SQL);
 };
@@ -84,16 +91,16 @@ const seedUsers = async () => {
 };
 const seedBooks = async () => {
   const [foo, bar, bazz, quq, fip] = await Promise.all([
-    createBook({ name: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'bar', price: 14, coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'bazz', coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'quq', coverimage: 'https://picsum.photos/200/300' }),
-    createBook({ name: 'fip', coverimage: 'https://picsum.photos/200/300' }),
+    createBook({ name: 'foo', author:'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
+    createBook({ name: 'bar', author:'foo', price: 14, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
+    createBook({ name: 'bazz', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
+    createBook({ name: 'quq', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
+    createBook({ name: 'fip', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
   ]);
 };
 
 const seedGenre = async () => {
-  
+
 }
 
 module.exports = {
