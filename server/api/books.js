@@ -25,21 +25,21 @@ router.get("/:id", async (req, res, next) => {
         next(ex);
       }
 });
-router.post("/", async (req, res, next) => {
+router.post("/", isLoggedIn, async (req, res, next) => {
     try {
         res.status(201).send(await createBook(req.body));
       } catch (ex) {
         next(ex);
       }
 });
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isLoggedIn, async (req, res, next) => {
     try {
         res.status(201).send(await updateBook({...req.body, id: req.params.id}));
       } catch (ex) {
         next(ex);
       }
 });
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isLoggedIn, async (req, res, next) => {
     try {
         res.status(204).send(await deleteBook({id: req.params.id}));
       } catch (ex) {

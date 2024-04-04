@@ -10,6 +10,7 @@ const createTables = async () => {
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS books;
+        DROP TABLE IF EXISTS genre;
         
         CREATE TABLE users(
           id UUID DEFAULT gen_random_uuid(),
@@ -27,6 +28,11 @@ const createTables = async () => {
           description VARCHAR(255),
           inventory INTEGER DEFAULT 0,
           coverimage TEXT NOT NULL,
+          PRIMARY KEY (id)
+        );
+        CREATE TABLE genre(
+          id UUID DEFAULT gen_random_uuid(),
+          book_id UUID REFERENCES books(id) NOT NULL,
           PRIMARY KEY (id)
         );
         CREATE TABLE orders(
