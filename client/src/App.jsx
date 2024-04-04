@@ -8,6 +8,7 @@ import { SingleBook } from './components/SingleBook'
 import { Register } from './components/Register'
 import { Account } from './components/Account'
 import { GenreNav } from './components/GenreNav'
+import { SingleGenre } from './components/SingleGenre'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/register" element={<Register setToken={setToken} />} />
           <Route path="/login" element={<Login setToken={setToken} email={email} setEmail={setEmail}/>} />
           <Route path="/account" element={<Account token={token} email={email} setEmail={setEmail}/>} />
+          <Route path="/books/genre/:bookId" element={<SingleGenre />} />
         </Routes>
       </div>
     </>

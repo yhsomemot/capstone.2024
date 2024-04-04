@@ -10,6 +10,15 @@ const fetchBooks = async () => {
     const result = await client.query(SQL);
     return result.rows;
   };
+
+  const fetchGenre = async () => {
+    const SQL = `
+      SELECT * FROM genre;
+      `;
+    const result = await client.query(SQL);
+    return result.rows;
+};
+
 const fetchSingleBook = async ({id}) => {
     const SQL = `
     SELECT * FROM books WHERE id=$1
@@ -18,6 +27,24 @@ const fetchSingleBook = async ({id}) => {
     return result.rows[0];
   };
 
+  const fetchGenreBooks = async ({id}) => {
+    const SQL = `
+        SELECT * FROM books
+        WHERE genre_id=$1
+    `;
+    const result = await client.query(SQL,[id]);
+    return result.rows[0];
+};
+
+const createGenre = async ({ name }) => {
+    const SQL = `
+      INSERT INTO genre(name) VALUES($1) RETURNING *
+    `;
+    const result = await client.query(SQL, [name]);
+    return result.rows[0];
+  };
+
+  //create books
 const createBook = async ({ name, author, price, description, inventory, coverimage, genre_id }) => {
     const SQL = `
       INSERT INTO books(id, name, author, price, description, inventory, coverimage, genre_id) VALUES($1, $2, $3, $4, $5, $6, $7, (SELECT id FROM genre WHERE name=$8)) RETURNING *
@@ -49,4 +76,7 @@ module.exports = {
     createBook,
     updateBook,
     deleteBook,
+    fetchGenreBooks,
+    fetchGenre,
+    createGenre
 }

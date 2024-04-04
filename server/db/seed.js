@@ -2,7 +2,7 @@ const { client } = require('../client.js')
 const { createUser } = require("./users.js")
 const { createBook } = require("./books.js");
 const { createOrders } = require('./orders.js');
-const { createGenre } = require('./genre.js');
+const { createGenre } = require('./books.js');
 
 //add a cart table? to keep track of status? no if delete cart is a thing.
 const createTables = async () => {

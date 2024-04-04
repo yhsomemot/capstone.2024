@@ -4,7 +4,7 @@ const { createTables, seedBooks, seedTable, seedUsers, seedGenre } = require("./
 const { fetchUsers } = require("./db/users.js")
 const { fetchBooks } = require("./db/books.js");
 const { fetchOrders } = require("./db/orders.js");
-const { fetchGenre } = require("./db/genre.js");
+const { fetchGenre } = require("./db/books.js");
 
 const cors = require('cors')
 
@@ -12,7 +12,7 @@ const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const orderRouter = require("./api/orders");
 // const authRouter = require("./api/users")
-const genreRouter = require("./api/genre");
+// const genreRouter = require("./api/genre");
 
 
 
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/genre", genreRouter);
+// app.use("/api/genre", genreRouter);
 // app.use("/api/auth", authRouter);
 
 
