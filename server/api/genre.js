@@ -1,5 +1,5 @@
 const express = require("express");
-const { fetchGenre, createGenre } = require('../db/genre.js')
+const { fetchGenre, createGenre, fetchSingleGenre } = require('../db/genre.js')
 
 
 const router = express.Router();
@@ -16,16 +16,12 @@ router.get('/', async (req, res, next) => {
   //get from single genre
   router.get('/:id', async (req, res, next) => {
     try {
-      const SQL = `
-        SELECT * from genre WHERE id=$1
-      `
-      const response = await client.query(SQL[req.params.id])
-      res.send(response.rows)
+      res.send(await fetchSingleGenre({id: req.params.id}))
     } catch (ex) {
       next(ex)
     }
   })
-
+  
   router.post("/", async (req, res, next) => {
     try {
         res.status(201).send(await createGenre(req.body));

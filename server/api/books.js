@@ -4,12 +4,13 @@ const {
     fetchSingleBook,
     createBook,
     updateBook, 
-    deleteBook
+    deleteBook,
 } = require("../db/books.js")
 const { isLoggedIn }=require("../db/auth.js")
 
 const router = express.Router();
 
+//get all books
 router.get("/", async (req, res, next) => {
     try {
         res.send(await fetchBooks());
@@ -18,6 +19,7 @@ router.get("/", async (req, res, next) => {
         next(ex);
       }
 });
+//get single book
 router.get("/:id", async (req, res, next) => {
     try {
         res.send(await fetchSingleBook({id: req.params.id}));
@@ -25,6 +27,7 @@ router.get("/:id", async (req, res, next) => {
         next(ex);
       }
 });
+//create book
 router.post("/", isLoggedIn, async (req, res, next) => {
     try {
         res.status(201).send(await createBook(req.body));
@@ -32,6 +35,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
         next(ex);
       }
 });
+//update book
 router.put("/:id", isLoggedIn, async (req, res, next) => {
     try {
         res.status(201).send(await updateBook({...req.body, id: req.params.id}));
@@ -39,6 +43,7 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
         next(ex);
       }
 });
+//delete book
 router.delete("/:id", isLoggedIn, async (req, res, next) => {
     try {
         res.status(204).send(await deleteBook({id: req.params.id}));

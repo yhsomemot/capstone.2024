@@ -2,6 +2,7 @@ const { client } = require('../client.js')
 const { createUser } = require("./users.js")
 const { createBook } = require("./books.js");
 const { createOrders } = require('./orders.js');
+const { createGenre } = require('./genre.js');
 
 //add a cart table? to keep track of status? no if delete cart is a thing.
 const createTables = async () => {
@@ -52,12 +53,7 @@ const createTables = async () => {
           CONSTRAINT unique_user_and_order_id UNIQUE (order_id, user_id),
           PRIMARY KEY (id)
           );
-
-          INSERT INTO genre (name) VALUES ('Fantasy');
-          INSERT INTO genre (name) VALUES ('Non-Fiction');
-          INSERT INTO genre (name) VALUES ('Fiction');
-          INSERT INTO genre (name) VALUES ('Sci-Fi');
-          INSERT INTO genre (name) VALUES ('Historical');
+    
       `;
   await client.query(SQL);
 };
@@ -81,6 +77,16 @@ const createTables = async () => {
 //     createOrders({ user_id: curly.id, book_id: foo.id, qty: 4 })
 //   ]);
 // }
+
+const seedGenre = async () => {
+  const [fantasy, nonfiction, fiction, scifi, historical] = await Promise.all([
+    createGenre({ name: 'fantasy' }),
+    createGenre({ name: 'nonfiction' }),
+    createGenre({ name: 'fiction' }),
+    createGenre({ name: 'scifi' }),
+    createGenre({ name: 'historical' })
+  ])
+};
 const seedUsers = async () => {
   const [moe, lucy, ethyl, curly] = await Promise.all([
     createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
@@ -91,21 +97,23 @@ const seedUsers = async () => {
 };
 const seedBooks = async () => {
   const [foo, bar, bazz, quq, fip] = await Promise.all([
-    createBook({ name: 'foo', author:'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
-    createBook({ name: 'bar', author:'foo', price: 14, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
-    createBook({ name: 'bazz', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
-    createBook({ name: 'quq', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
-    createBook({ name: 'fip', author:'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Sci-Fi' }),
+    createBook({ name: 'foo', author: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300', genre_id: 'fantasy' }),
+    createBook({ name: 'bar', author: 'foo', price: 14, coverimage: 'https://picsum.photos/200/300', genre_id: 'fantasy' }),
+    createBook({ name: 'bazz', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'scifi' }),
+    createBook({ name: 'quq', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'historical' }),
+    createBook({ name: 'fip', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'scifi' }),
   ]);
 };
 
-const seedGenre = async () => {
 
-}
+
+
+
 
 module.exports = {
   createTables,
   seedUsers,
   seedBooks,
+  seedGenre
   // seedTable
 }

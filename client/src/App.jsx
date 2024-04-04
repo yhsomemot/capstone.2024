@@ -7,6 +7,7 @@ import { Navigations } from './components/Navigation'
 import { SingleBook } from './components/SingleBook'
 import { Register } from './components/Register'
 import { Account } from './components/Account'
+import { GenreNav } from './components/GenreNav'
 
 
 function App() {
@@ -16,9 +17,9 @@ function App() {
   return (
     <>
       <h1>BOOK STORE!</h1>
-      <div>
-        <Navigations />
-      </div>
+      <div><Navigations /></div>
+      <br />
+      <div><GenreNav /></div>
 
       <div>
         <Routes>

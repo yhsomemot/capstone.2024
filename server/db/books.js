@@ -17,6 +17,7 @@ const fetchSingleBook = async ({id}) => {
     const result = await client.query(SQL, [id]);
     return result.rows[0];
   };
+
 const createBook = async ({ name, author, price, description, inventory, coverimage, genre_id }) => {
     const SQL = `
       INSERT INTO books(id, name, author, price, description, inventory, coverimage, genre_id) VALUES($1, $2, $3, $4, $5, $6, $7, (SELECT id FROM genre WHERE name=$8)) RETURNING *
@@ -47,5 +48,5 @@ module.exports = {
     fetchSingleBook,
     createBook,
     updateBook,
-    deleteBook
+    deleteBook,
 }

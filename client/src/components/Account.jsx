@@ -37,6 +37,9 @@ export function Account({ token, email, username }) {
     return (
         <>
         <h1>CART!! and order history??</h1>
+        <button>order history</button>
+        <button>Logout</button>
+        <button>cart</button>
 
         </>
 
