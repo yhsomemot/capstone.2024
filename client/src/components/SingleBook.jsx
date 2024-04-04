@@ -12,7 +12,6 @@ export function SingleBook() {
                 const response = await fetch(`${API_URL}/api/books/${bookId}`);
                 const result = await response.json();
                 setBook(result);
-                console.log(result)
             } catch (error) {
                 console.error(error);
             }

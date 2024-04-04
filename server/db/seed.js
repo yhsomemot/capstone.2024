@@ -16,9 +16,14 @@ const createTables = async () => {
           id UUID DEFAULT gen_random_uuid(),
           email VARCHAR(100) UNIQUE NOT NULL,
           password VARCHAR(100),
-          address VARCHAR(255),
+          address TEXT,
           payment_info VARCHAR(16),
           is_admin BOOLEAN DEFAULT FALSE,
+          PRIMARY KEY (id)
+        );
+        CREATE TABLE genre(
+          id UUID DEFAULT gen_random_uuid(),
+          name VARCHAR(100) UNIQUE, 
           PRIMARY KEY (id)
         );
         CREATE TABLE books(
@@ -28,11 +33,7 @@ const createTables = async () => {
           description VARCHAR(255),
           inventory INTEGER DEFAULT 0,
           coverimage TEXT NOT NULL,
-          PRIMARY KEY (id)
-        );
-        CREATE TABLE genre(
-          id UUID DEFAULT gen_random_uuid(),
-          book_id UUID REFERENCES books(id) NOT NULL,
+          genre_name TEXT REFERENCES genre(name),
           PRIMARY KEY (id)
         );
         CREATE TABLE orders(
@@ -90,6 +91,10 @@ const seedBooks = async () => {
     createBook({ name: 'fip', coverimage: 'https://picsum.photos/200/300' }),
   ]);
 };
+
+const seedGenre = async () => {
+  
+}
 
 module.exports = {
   createTables,

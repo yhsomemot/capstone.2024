@@ -12,7 +12,6 @@ export function Books() {
                 const response = await fetch(`${API_URL}/api/books/`);
                 const result = await response.json();
                 setBooks(result)
-                console.log(result)
             } catch (error) {
                 console.log(error);
             }
