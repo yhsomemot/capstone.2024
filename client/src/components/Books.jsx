@@ -24,13 +24,16 @@ export function Books() {
         <>
             <h1>Books</h1>
             <ul>
-                {books.filter((book) => book.name.toLowerCase().inclues(filter.toLowerCase())).map((book) => {
+                {/* {books.filter((book) => book.name.toLowerCase().inclues(filter.toLowerCase())).map((book) => {
                     return <li id="bookImg" key={book.id}>{book.name}
                         <Link to={`/books/${book.id}`}>
                     <img src={book.coverimage} />
                 </Link>
 
                 </li>
+                })} */}
+                {books.map((book) => {
+                    return <li id="bookImg" key={book.id}> {book.name}<Link to={`/books/${book.id}`}><img src={book.coverimage} /></Link></li>
                 })}
             </ul>
             

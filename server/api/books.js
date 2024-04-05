@@ -48,18 +48,8 @@ router.get("/genre/:id", async (req, res, next) => {
       next(ex)
   }
 });
-
-
-// //get from single genre
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//       res.send(await fetchSingleGenre({ id: req.params.id }))
-//   } catch (ex) {
-//       next(ex)
-//   }
-// })
-
-router.post("/", async (req, res, next) => {
+//create Genre
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
       res.status(201).send(await createGenre(req.body));
   } catch (ex) {

@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../App";
 
-
-export function Account({ token, email, username }) {
-    const [successMessage, setSuccessMessage] = useState("")
-    const [book, setBook] = useState([]);
-    const [error, setError] =useState("")
-    const [auth, setAuth] = useState({});
-
+export function Account() {
 
     useEffect(()=> {
         attemptLoginWithToken();
       }, []);
-     
+
     const attemptLoginWithToken = async () => {
         const token = window.localStorage.getItem('token');
         console.log("token " + token)
@@ -22,11 +16,9 @@ export function Account({ token, email, username }) {
                     authorization: token
                 }
             });
-            const result = await response.json();
-            setBook(result ?? []);
-            setSuccessMessage(result.message);
+            const json = await response.json();
             if (response.ok) {
-                setAuth(result);
+                setAuth(json);
             }
             else {
                 window.localStorage.removeItem('token');
@@ -34,14 +26,19 @@ export function Account({ token, email, username }) {
         }
     };
 
-    return (
+    const removeBooks = async(id) => {
+        const response = await fetch(`${API_URL}/api/books/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorizaation': window.localStorage.getItem('token')
+            }
+        })
+    }
+
+    return(
         <>
-        <h1>CART!! and order history??</h1>
-        <button>order history</button>
-        <button>Logout</button>
-        <button>cart</button>
-
+        {}
         </>
-
     )
 }
