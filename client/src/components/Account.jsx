@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../App";
 
 export function Account() {
+    const [auth, setAuth] = useState({});
 
     useEffect(()=> {
         attemptLoginWithToken();
@@ -26,6 +27,12 @@ export function Account() {
         }
     };
 
+    const logout = ()=> {
+        window.localStorage.removeItem('token');
+        setAuth({});
+      };
+    
+
     const removeBooks = async(id) => {
         const response = await fetch(`${API_URL}/api/books/${id}`, {
             method: 'DELETE',
@@ -38,7 +45,64 @@ export function Account() {
 
     return(
         <>
-        {}
+         { <button onClick={ logout }>Logout { auth.email }</button> }
         </>
     )
 }
+
+// export function Account({ token, email }) {
+//     const [successMessage, setSuccessMessage] = useState("")
+//     const [book, setBook] = useState([]);
+//     const [error, setError] =useState("")
+
+//     useEffect(() => {
+        
+//         async function fetchUserData() {
+//             try {
+//                 const response = await fetch(`${API_URL}/api/users/me`, {
+//                     method: "GET",
+//                     headers: {
+//                         "Content-Type": "application/json",
+//                         Authorization: `Bearer ${token}`
+//                     },
+//                 });
+//                 const result = await response.json();
+//                 setBook(result.books ?? []);
+//                 setSuccessMessage(result.message);
+//             } catch (error) {
+//                 setError(error.message);
+//             }
+//         }
+//         fetchUserData();
+//     }, []);
+
+
+
+//     return (
+//         <>
+//             <h1>Hello, {email} </h1>
+//             <h2 className="account"> My library</h2>
+//             <table>
+//                 <thead className="">
+//                     <tr>
+//                         <th>name</th>
+//                         <th>action</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody className="">
+//                     {book.map((book) => {
+//                         return (
+//                             <tr key={book.id}>
+//                                 <td>{book.title}</td>
+//                             </tr>
+//                         )
+//                     })}
+//                 </tbody>
+//             </table>
+
+
+
+//         </>
+
+//     )
+// }
