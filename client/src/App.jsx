@@ -1,35 +1,42 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './components/Login'
+import { Books } from './components/Books'
+import { Navigations } from './components/Navigation'
+import { SingleBook } from './components/SingleBook'
+import { Register } from './components/Register'
+import { Account } from './components/Account'
+import { GenreNav } from './components/GenreNav'
+import { SingleGenre } from './components/SingleGenre'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [token, setToken] = useState(null);
+  const [email, setEmail] = useState("");
 
   return (
     <>
+      <h1>BOOK STORE!</h1>
+      <div><Navigations /></div>
+      <br />
+      <div><GenreNav /></div>
+
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Routes>
+          <Route path="/" element={<Books />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:bookId" element={<SingleBook />} />
+          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/login" element={<Login setToken={setToken} email={email} setEmail={setEmail}/>} />
+          <Route path="/account" element={<Account token={token} email={email} setEmail={setEmail}/>} />
+          <Route path="/books/genre/:bookId" element={<SingleGenre />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
 
 export default App
+export const API_URL = "http://localhost:3000"

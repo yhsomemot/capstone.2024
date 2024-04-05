@@ -40,7 +40,7 @@ router.post("/register", async (req, res, next) => {
       }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn, async (req, res, next) => {
     try {
         res.send(await fetchUsers());
       }

@@ -4,54 +4,54 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const fetchAllOrders = async () => {
+const fetchOrders = async () => {
     const SQL = `
       SELECT * FROM orders
     `;
     const result = await client.query(SQL);
     return result.rows;
   };
-const fetchOrders = async ({ user_id }) => {
+const fetchSingleOrder = async ({ user_id }) => {
     const SQL = `
       SELECT * FROM orders WHERE user_id = $1
     `;
     const result = await client.query(SQL, [user_id]);
     return result.rows;
   };
-const updateOrders = async ({ qty, product_id, user_id }) => {
+const updateOrders = async ({ qty, book_id, user_id }) => {
     const SQL = `
       UPDATE orders
       SET qty=$1
-      WHERE product_id=$2 AND user_id=$3
+      WHERE book_id=$2 AND user_id=$3
       RETURNING *
   `;
-  const result = await client.query(SQL,[qty, product_id, user_id]);
+  const result = await client.query(SQL,[qty, book_id, user_id]);
   return result.rows[0];
   };
-const createOrders = async ({ user_id, product_id, qty }) => {
+const createOrders = async ({ user_id, book_id, qty }) => {
     const SQL = `
-      INSERT INTO orders( user_id, product_id, qty) VALUES($1, $2, $3) RETURNING *
+      INSERT INTO orders( user_id, book_id, qty) VALUES($1, $2, $3) RETURNING *
     `;
-    const result = await client.query(SQL, [user_id, product_id, qty ]);
+    const result = await client.query(SQL, [user_id, book_id, qty ]);
     console.log(result)
     return result.rows[0];
   };
-const deleteOrderProducts = async ({ user_id, product_id }) => {
+const deleteOrderProducts = async ({ user_id, book_id }) => {
     const SQL = `
-    DELETE FROM orders WHERE user_id=$1 AND product_id=$2
+    DELETE FROM orders WHERE user_id=$1 AND book_id=$2
   `;
-    await client.query(SQL, [user_id, product_id]);
+    await client.query(SQL, [user_id, book_id]);
   };
-const deleteWholeOrder = async ({ user_id, product_id }) => {
+const deleteWholeOrder = async ({ user_id, book_id }) => {
     const SQL = `
     DELETE FROM orders WHERE user_id=$1 AND id=$2
   `;
-    await client.query(SQL, [user_id, product_id]);
+    await client.query(SQL, [user_id, book_id]);
   };
   
 
 module.exports = {
-    fetchAllOrders,
+    fetchSingleOrder,
     fetchOrders,
     updateOrders,
     createOrders,
