@@ -18,6 +18,14 @@ const fetchBooks = async () => {
     const result = await client.query(SQL);
     return result.rows;
 };
+  const fetchGenreBooks = async ({id}) => {
+    const SQL = `
+        SELECT * FROM books
+        WHERE genre_id=$1
+    `;
+    const result = await client.query(SQL,[id]);
+    return result.rows;
+};
 
 const fetchSingleBook = async ({id}) => {
     const SQL = `
@@ -27,14 +35,7 @@ const fetchSingleBook = async ({id}) => {
     return result.rows[0];
   };
 
-  const fetchGenreBooks = async ({id}) => {
-    const SQL = `
-        SELECT * FROM books
-        WHERE genre_id=$1
-    `;
-    const result = await client.query(SQL,[id]);
-    return result.rows[0];
-};
+
 
 const createGenre = async ({ name }) => {
     const SQL = `

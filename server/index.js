@@ -37,7 +37,7 @@ const init = async () => {
     console.log('tables created');
 
     await seedGenre();
-    console.log("genre", await fetchGenre())
+    // console.log("genre", await fetchGenre())
 
     // await seedTable();
     // console.log("orders", await fetchOrders())

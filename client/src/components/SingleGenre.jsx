@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export function SingleGenre() {
-    const [book, setBook] = useState({})
+    const [genreBooks, setGenreBooks] = useState([])
     const { bookId } = useParams();
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export function SingleGenre() {
             try {
                 const response = await fetch(`${API_URL}/api/books/genre/${bookId}`);
                 const result = await response.json();
-                setBook(result);
+                setGenreBooks(result);
             } catch (error) {
                 console.log(error);
             }
@@ -22,11 +22,16 @@ export function SingleGenre() {
 
     return (
         <div>
-            <Link to={`/books/${book.id}`}>
-                    <img src={book.coverimage} />
+            {genreBooks.map((genreBook) => {
+                return<div key={genreBook.id}><h2>{genreBook.name}</h2><Link to={`/books/${genreBook.id}`}><img src={genreBook.coverimage} /></Link>
+                </div>
+            })}
+
+            {/* <Link to={`/books/${genreBooks.id}`}>
+                    <img src={genreBooks.coverimage} />
                 </Link>
-            <h2>{book.name}</h2>
-            <h2>{book.author}</h2>
+            <h2>{genreBooks.name}</h2>
+            <h2>{genreBooks.author}</h2> */}
         </div>
     )
 }

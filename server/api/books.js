@@ -31,7 +31,6 @@ router.get("/genre", async (req, res, next) => {
   }
 })
 
-
 //get single book
 router.get("/:id", async (req, res, next) => {
     try {

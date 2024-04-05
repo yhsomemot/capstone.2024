@@ -4,6 +4,7 @@ export function Navigations() {
 
     return (
         <div id="navbar">
+            <input type="text" placeholder="search" /> <button>search</button>
             <Link to="/books" className="books">
                 Books
             </Link>
@@ -16,7 +17,7 @@ export function Navigations() {
             {/* <Link to="/cart" className="cart">
                Cart
             </Link> */}
-            {/* <span className="hello">Hello, {username} </span> */}
+            {/* <span className="hello">Hello, {email} </span> */}
         </div>
     );
 }

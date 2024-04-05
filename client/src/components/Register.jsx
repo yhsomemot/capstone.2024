@@ -39,13 +39,11 @@ export function Register({ setToken }) {
             <form className="registerForm" onSubmit={handleSubmit}>
 
                 <label>
-                    Username: {""}
-                    <input type="email" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+                    <input type="email" value={username} placeholder="Email" onChange={(e) => { setUsername(e.target.value) }} />
                 </label>
                 <br />
                 <label>
-                    Password: {""}
-                    <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                    <input type="password" value={password} placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <br />
                 <button type="submit">Register</button>

@@ -79,16 +79,16 @@ const createTables = async () => {
 // }
 
 const seedGenre = async () => {
-  const [fantasy, nonfiction, fiction, scifi, historical] = await Promise.all([
-    createGenre({ name: 'fantasy' }),
-    createGenre({ name: 'nonfiction' }),
-    createGenre({ name: 'fiction' }),
-    createGenre({ name: 'scifi' }),
-    createGenre({ name: 'historical' })
+  const [Fantasy, NonFiction, Romance, Science_Fiction, Historical] = await Promise.all([
+    createGenre({ name: 'Fantasy' }),
+    createGenre({ name: 'NonFiction' }),
+    createGenre({ name: 'Romance' }),
+    createGenre({ name: 'Science_Fiction' }),
+    createGenre({ name: 'Historical' })
   ])
 };
 const seedUsers = async () => {
-  const [moe, lucy, ethyl, curly] = await Promise.all([
+  const [moe, lucy, ethyl, curly,] = await Promise.all([
     createUser({ email: 'moe@email.com', password: 'm_pw', address: 'Texas', is_admin: false }),
     createUser({ email: 'lucy@email.com', password: 'l_pw', address: 'Canada', is_admin: true }),
     createUser({ email: 'ethyl@email.com', password: 'e_pw', address: 'Norway', is_admin: false }),
@@ -96,12 +96,17 @@ const seedUsers = async () => {
   ]);
 };
 const seedBooks = async () => {
-  const [foo, bar, bazz, quq, fip] = await Promise.all([
-    createBook({ name: 'foo', author: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300', genre_id: 'fantasy' }),
-    createBook({ name: 'bar', author: 'foo', price: 14, coverimage: 'https://picsum.photos/200/300', genre_id: 'fantasy' }),
-    createBook({ name: 'bazz', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'scifi' }),
-    createBook({ name: 'quq', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'historical' }),
-    createBook({ name: 'fip', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'scifi' }),
+  const [foo, bar, bazz, quq, fip, pippin, lorel, dog, cat, bat] = await Promise.all([
+    createBook({ name: 'foo', author: 'foo', price: 9, description: 'fee fi foo fum', inventory: 20, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
+    createBook({ name: 'bar', author: 'foo', price: 14, coverimage: 'https://picsum.photos/200/300', genre_id: 'Fantasy' }),
+    createBook({ name: 'bazz', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Science_Fiction' }),
+    createBook({ name: 'quq', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Historical' }),
+    createBook({ name: 'fip', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Science_Fiction' }),
+    createBook({ name: 'pippin', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Science_Fiction' }),
+    createBook({ name: 'lorel', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'NonFiction' }),
+    createBook({ name: 'dog', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Romance' }),
+    createBook({ name: 'cat', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Romance' }),
+    createBook({ name: 'bat', author: 'foo', coverimage: 'https://picsum.photos/200/300', genre_id: 'Science_Fiction' }),
   ]);
 };
 
