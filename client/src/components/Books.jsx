@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../App";
+// import {handleFilter} from "./Navigation"
 
 export function Books() {
 
@@ -23,7 +24,7 @@ export function Books() {
         <>
             <h1>Books</h1>
             <ul>
-                {books.map((book) => {
+                {books.filter((book) => book.name.toLowerCase().inclues(filter.toLowerCase())).map((book) => {
                     return <li id="bookImg" key={book.id}>{book.name}
                         <Link to={`/books/${book.id}`}>
                     <img src={book.coverimage} />

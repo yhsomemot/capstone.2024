@@ -26,12 +26,6 @@ export function SingleGenre() {
                 return<div key={genreBook.id}><h2>{genreBook.name}</h2><Link to={`/books/${genreBook.id}`}><img src={genreBook.coverimage} /></Link>
                 </div>
             })}
-
-            {/* <Link to={`/books/${genreBooks.id}`}>
-                    <img src={genreBooks.coverimage} />
-                </Link>
-            <h2>{genreBooks.name}</h2>
-            <h2>{genreBooks.author}</h2> */}
         </div>
     )
 }
