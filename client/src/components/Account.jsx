@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function Account() {
+export function Account({login, register}) {
     const [auth, setAuth] = useState({});
+    const [books, setBooks] = useState([]);
 
     useEffect(()=> {
         attemptLoginWithToken();
@@ -33,19 +35,14 @@ export function Account() {
       };
     
 
-    const removeBooks = async(id) => {
-        const response = await fetch(`${API_URL}/api/books/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorizaation': window.localStorage.getItem('token')
-            }
-        })
-    }
 
     return(
         <>
-         { <button onClick={ logout }>Logout { auth.email }</button> }
+        {/* {books.map(book => {
+            const isOrdered = 
+        })} */}
+  
+         <Link to={`/login`}><button onClick={ logout }>Logout { auth.email }</button></Link>
         </>
     )
 }

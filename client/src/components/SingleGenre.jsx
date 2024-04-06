@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { API_URL } from "../App";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FilterContext } from "./FilterContext";
 
 export function SingleGenre() {
     const [genreBooks, setGenreBooks] = useState([])
     const { bookId } = useParams();
+    const [filter] =useContext(FilterContext);
 
     useEffect(() => {
         const fetchBooksGenre = async () => {
@@ -27,5 +29,14 @@ export function SingleGenre() {
                 </div>
             })}
         </div>
+
+// {books.filter((book) => book.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((book) => {
+//     return <li id="bookImg" key={book.id}>{book.name}
+//         <Link to={`/books/${book.id}`}>
+//     <img src={book.coverimage} />
+// </Link>
+
+// </li>
+// })}
     )
 }

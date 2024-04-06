@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { FilterContext } from "./FilterContext";
 
 export function Navigations() {
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useContext(FilterContext)
     const [books, setBooks] = useState([]);
 
 
