@@ -7,7 +7,7 @@ import { FilterContext } from "./FilterContext";
 export function SingleGenre() {
     const [genreBooks, setGenreBooks] = useState([])
     const { bookId } = useParams();
-    const [filter] =useContext(FilterContext);
+    const [filter] = useContext(FilterContext)
 
     useEffect(() => {
         const fetchBooksGenre = async () => {
@@ -24,19 +24,10 @@ export function SingleGenre() {
 
     return (
         <div>
-            {genreBooks.map((genreBook) => {
-                return<div key={genreBook.id}><h2>{genreBook.name}</h2><Link to={`/books/${genreBook.id}`}><img src={genreBook.coverimage} /></Link>
+            {genreBooks.filter((genreBook) => genreBook.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((genreBook) => {
+                return <div key={genreBook.id}><h2>{genreBook.name}</h2><Link to={`/books/${genreBook.id}`}><img src={genreBook.coverimage} /></Link>
                 </div>
             })}
         </div>
-
-// {books.filter((book) => book.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((book) => {
-//     return <li id="bookImg" key={book.id}>{book.name}
-//         <Link to={`/books/${book.id}`}>
-//     <img src={book.coverimage} />
-// </Link>
-
-// </li>
-// })}
     )
 }
