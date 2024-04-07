@@ -20,8 +20,8 @@ export function SingleBook() {
     }, [bookId])
 
     return (
-        <div>
-            <img src={book.coverimage} />
+        <div id="books">
+            <img className= "bookImg" src={book.coverimage} />
             <h2>{book.name}</h2>
             <h2>{book.author}</h2>
             <p>{book.description}</p>
