@@ -26,11 +26,15 @@ export function SingleGenre() {
     }, [bookId])
 
     return (
-        <div>
+        <ul id="books">
             {genreBooks.filter((genreBook) => genreBook.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((genreBook) => {
-                return <div key={genreBook.id}><h2>{genreBook.name}</h2><Link to={`/books/${genreBook.id}`}><img src={genreBook.coverimage} /></Link>
-                </div>
+                return <li key={genreBook.id}><Link to={`/books/${genreBook.id}`}><img className="bookImg" src={genreBook.coverimage} /></Link>
+                    <br />
+                    <h2>{genreBook.name}</h2>
+                    <h3>{genreBook.author}</h3>
+                    <h3>{genreBook.price}</h3>
+                </li>
             })}
-        </div>
+        </ul>
     )
 }

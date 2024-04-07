@@ -26,19 +26,18 @@ export function Books() {
     return (
         <div>
             <h1>Books</h1>
-            <ul id="books">
+            <div id="books">
                 {books.filter((book) => book.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((book) => {
-                    return <li id="bookImg" key={book.id}>
+                    return <div id="bookImg" key={book.id}>
                         <Link to={`/books/${book.id}`}> <img className= "bookImg" src={book.coverimage} /> </Link>
                         <br />
-                        {book.name}
-                        <br />
-                        {book.author}
-                        <br />
-                        {book.price}
-                </li>
+                        <h2>{book.name}</h2>
+                        <h3>{book.author}</h3>
+                        <h3>{book.price}</h3>
+                        
+                </div>
                 })}
-            </ul>
+            </div>
             
         </div>
     )
