@@ -24,6 +24,7 @@ export function SingleBook() {
             <img src={book.coverimage} />
             <h2>{book.name}</h2>
             <h2>{book.author}</h2>
+            <p>{book.description}</p>
             <select name="qty" id="sty">
                 <option value="1">Quantity: 1</option>
                 <option value="2">Quantity: 2</option>

@@ -11,8 +11,6 @@ const cors = require('cors')
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const orderRouter = require("./api/orders");
-// const authRouter = require("./api/users")
-// const genreRouter = require("./api/genre");
 
 
 
@@ -22,9 +20,6 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/orders", orderRouter);
-// app.use("/api/genre", genreRouter);
-// app.use("/api/auth", authRouter);
-
 
 
 
@@ -46,7 +41,7 @@ const init = async () => {
     // console.log("users", await fetchUsers());
 
     await seedBooks();
-    console.log("books", await fetchBooks());
+    // console.log("books", await fetchBooks());
 
   
 

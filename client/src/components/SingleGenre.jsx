@@ -1,13 +1,16 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+// import { useContext } from "react";
 import { API_URL } from "../App";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FilterContext } from "./FilterContext";
+// import { FilterContext } from "./FilterContext";
+import { useFilter } from "../useFilter";
 
 export function SingleGenre() {
     const [genreBooks, setGenreBooks] = useState([])
     const { bookId } = useParams();
-    const [filter] = useContext(FilterContext)
+    // const [filter] = useContext(FilterContext)
+    const [filter] = useFilter()
 
     useEffect(() => {
         const fetchBooksGenre = async () => {

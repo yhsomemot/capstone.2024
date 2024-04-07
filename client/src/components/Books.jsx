@@ -24,22 +24,20 @@ export function Books() {
     }, []);
 
     return (
-        <>
+        <div>
             <h1>Books</h1>
-            <ul>
+            <ul id="books">
                 {books.filter((book) => book.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((book) => {
-                    return <li id="bookImg" key={book.id}>{book.name}
-                        <Link to={`/books/${book.id}`}>
-                    <img src={book.coverimage} />
-                </Link>
-
+                    return <li id="bookImg" key={book.id}>
+                        <Link to={`/books/${book.id}`}> <img src={book.coverimage} /> </Link>
+                        <br />
+                        {book.name}
+                        <br />
+                        {book.price}
                 </li>
                 })}
-                {/* {books.map((book) => {
-                    return <li id="bookImg" key={book.id}> {book.name}<Link to={`/books/${book.id}`}><img src={book.coverimage} /></Link></li>
-                })} */}
             </ul>
             
-        </>
+        </div>
     )
 }

@@ -42,7 +42,8 @@ export function Account({login, register}) {
             const isOrdered = 
         })} */}
   
-         <Link to={`/login`}><button onClick={ logout }>Logout { auth.email }</button></Link>
+         {/* <Link to={`/login`}><button onClick={ logout }>Logout { auth.email }</button></Link> */}
+         <button onClick={ logout }>Logout { auth.email }</button>
         </>
     )
 }
