@@ -33,6 +33,8 @@ export function Books() {
                         <br />
                         {book.name}
                         <br />
+                        {book.author}
+                        <br />
                         {book.price}
                 </li>
                 })}
