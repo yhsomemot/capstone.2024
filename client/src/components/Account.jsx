@@ -40,15 +40,18 @@ export function Account({login, register}) {
 
 
     return(
-        <>
-        <h2>Links:</h2>
+        <div className="accountButton">
+        <h2> Links:</h2>
+        <button onClick={ logout }>Logout { auth.email }</button>
+        <br />
         <button>order history</button>
+        <br />
         <button>update profile</button>
+        <br />
         <button>view cart</button>
-  
-         {/* <Link to={`/login`}><button onClick={ logout }>Logout { auth.email }</button></Link> */}
-         <button onClick={ logout }>Logout { auth.email }</button>
-        </>
+        <br />
+        <button>delete account</button>
+        </div>
     )
 }
 
