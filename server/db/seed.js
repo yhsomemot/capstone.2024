@@ -41,16 +41,14 @@ const createTables = async () => {
         CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
-          cart_id UUID REFERENCES users(id) NOT NULL,
           PRIMARY KEY (id)
         );
         CREATE TABLE carts(
           id UUID DEFAULT gen_random_uuid(),
           order_id UUID REFERENCES orders(id) NOT NULL,
-          user_id UUID REFERENCES users(id) NOT NULL,
           book_id UUID REFERENCES books(id) NOT NULL,
           qty INTEGER DEFAULT 1,
-          CONSTRAINT unique_user_and_book_id UNIQUE (book_id, user_id),
+          CONSTRAINT unique_user_and_book_id UNIQUE (book_id, order_id),
           PRIMARY KEY (id)
           );
     

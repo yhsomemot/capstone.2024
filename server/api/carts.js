@@ -22,35 +22,35 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:orderId", isLoggedIn, async (req, res, next) => {
   try {
-    res.send(await fetchUserCart(req.params.id));
+    res.send(await fetchUserCart({order_id: req.params.id}));
   }
   catch (ex) {
     next(ex);
   }
 });
 
-router.post("/user/:userId", async (req, res, next) => {
+router.post("/:orderId", async (req, res, next) => {
   try {
-    res.status(201).send(await addCartProduct({ user_id: req.params.userId, book_id: req.body.book_id, qty: req.body.qty }));
+    res.status(201).send(await addCartProduct({ order_id: req.params.order_Id, book_id: req.body.book_id, qty: req.body.qty }));
   }
   catch (ex) {
     next(ex);
   }
 });
 
-router.put("/user/:userId", async (req, res, next) => {
+router.put("/:orderId", async (req, res, next) => {
   try {
-    res.status(201).send(await updateCartProductQty({ qty: req.body.qty, book_id: req.params.id, user_id: req.params.userId }));
+    res.status(201).send(await updateCartProductQty({ qty: req.body.qty, book_id: req.params.id, order_id: req.params.order_Id }));
   } catch (ex) {
     next(ex);
   }
 });
 
-router.delete("/user/:userId", async (req, res, next) => {
+router.delete("/:productId", async (req, res, next) => {
   try {
-    await deleteCartProduct({ user_id: req.params.userId, book_id: req.params.id });
+    await deleteCartProduct({ order_id: req.params.order_Id, book_id: req.params.id });
     res.sendStatus(204);
   } catch (ex) {
     next(ex);
@@ -60,7 +60,7 @@ router.delete("/user/:userId", async (req, res, next) => {
 //delete after check out.
 // router.delete("/:id/user/:userId", async (req, res, next) => {
 //   try {
-//     await deleteWholeOrder({ id: req.params.id, user_id: req.params.userId });
+//     await deleteWholeOrder({ id: req.params.id, order_id: req.params.userId });
 //     res.sendStatus(204);
 //   } catch (ex) {
 //     next(ex);
