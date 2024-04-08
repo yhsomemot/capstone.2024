@@ -16,6 +16,7 @@ function App() {
   const [login, setLogin] = useState("");
   const [register, setRegister] = useState("");
   const [filter, setFilter] = useState("");
+  const [token, setToken] = useState()
 
   return (
     <FilterContext.Provider value={[filter, setFilter]}>

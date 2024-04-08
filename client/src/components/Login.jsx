@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function Login() {
+export function Login({ token, setToken }) {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -54,13 +54,13 @@ export function Login() {
         }
     };
 
-    useEffect(() => {
-        if (
-            loggedIn
-        ) {
-            navigate("/account")
-        }
-    }, [loggedIn])
+    // useEffect(() => {
+    //     if (
+    //         loggedIn
+    //     ) {
+    //         navigate("/account")
+    //     }
+    // }, [loggedIn])
 
     return (
         <div>

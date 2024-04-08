@@ -1,7 +1,7 @@
 const { client } = require('../client.js')
 const { createUser } = require("./users.js")
 const { createBook } = require("./books.js");
-const { createOrders } = require('./orders.js');
+const { createCart } = require('./orders.js');
 const { createGenre } = require('./books.js');
 
 //add a cart table? to keep track of status? no if delete cart is a thing.
@@ -41,16 +41,16 @@ const createTables = async () => {
         CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
-          book_id UUID REFERENCES books(id) NOT NULL,
-          qty INTEGER DEFAULT 1,
-          CONSTRAINT unique_user_and_book_id UNIQUE (book_id, user_id),
+          cart_id UUID REFERENCES users(id) NOT NULL,
           PRIMARY KEY (id)
         );
         CREATE TABLE carts(
           id UUID DEFAULT gen_random_uuid(),
-          user_id UUID REFERENCES users(id) NOT NULL,
           order_id UUID REFERENCES orders(id) NOT NULL,
-          CONSTRAINT unique_user_and_order_id UNIQUE (order_id, user_id),
+          user_id UUID REFERENCES users(id) NOT NULL,
+          book_id UUID REFERENCES books(id) NOT NULL,
+          qty INTEGER DEFAULT 1,
+          CONSTRAINT unique_user_and_book_id UNIQUE (book_id, user_id),
           PRIMARY KEY (id)
           );
     
@@ -72,9 +72,9 @@ const createTables = async () => {
 //     createBook({ name: 'fip', coverimage: 'https://picsum.photos/200/300' })
 //   ]);
 //   await Promise.all([
-//     createOrders({ user_id: moe.id, book_id: foo.id, qty: 1 }),
-//     createOrders({ user_id: curly.id, book_id: bazz.id, qty: 6 }),
-//     createOrders({ user_id: curly.id, book_id: foo.id, qty: 4 })
+//     createCart({ user_id: moe.id, book_id: foo.id, qty: 1 }),
+//     createCart({ user_id: curly.id, book_id: bazz.id, qty: 6 }),
+//     createCart({ user_id: curly.id, book_id: foo.id, qty: 4 })
 //   ]);
 // }
 

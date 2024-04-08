@@ -33,7 +33,12 @@ export function Account({login, register}) {
         window.localStorage.removeItem('token');
         setAuth({});
       };
-    
+
+      //get user data
+      //update user
+      //delete user
+
+      //add buttons to order history, update profile,
 
 
     return(
