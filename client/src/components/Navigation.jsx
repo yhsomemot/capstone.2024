@@ -24,9 +24,9 @@ export function Navigations() {
             <Link to="/account" className="linkNav">
                 Account
             </Link>
-            {/* <Link to="/cart" className="cart">
+            <Link to="/cart" className="cart">
                Cart
-            </Link> */}
+            </Link>
             {/* <span className="hello">Hello, {email} </span> */}
         </div>
     );

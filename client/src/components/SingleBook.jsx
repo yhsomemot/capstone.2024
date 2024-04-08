@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function SingleBook() {
+export function SingleBook({token}) {
     const [book, setBook] = useState({})
     const { bookId } = useParams();
+    const [successMessage, setSuccessMessage] =useState("");
+    const [error, setError] = useState ("");
 
     useEffect(() => {
         async function fetchSingleBook() {
@@ -18,6 +20,27 @@ export function SingleBook() {
         }
         fetchSingleBook();
     }, [bookId])
+
+    async function handleClick() {
+        try {
+            const response = await fetch(`${API_URL}/api/carts/${bookId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: token
+                },
+                body: JSON.stringify({
+                    available: false
+                })
+            });
+            const result = await response.json();
+            setSuccessMessage(result.message);
+        } catch (error) {
+            setError(error.message);
+        }
+    }
+
+    //add addCartProducts and make a handle submit for add to cart button
 
     return (
         <div>
@@ -41,8 +64,8 @@ export function SingleBook() {
                     <option value="9">Quantity: 9</option>
                     <option value="10">Quantity: 10</option>
                 </select>
-
-                <button className="">add to cart</button>
+                {/* <button onClick={async () => await handleClick(book.id)}>Check Out</button> */}
+                <button onClick={async () => await handleClick(book.id)}>add to cart</button>
             </div>
 
         </div>

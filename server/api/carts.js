@@ -42,13 +42,13 @@ router.post("/:orderId", isLoggedIn, async (req, res, next) => {
 
 router.put("/:orderId", isLoggedIn, async (req, res, next) => {
   try {
-    res.status(201).send(await updateCartProductQty({ qty: req.body.qty, book_id: req.params.id, order_id: req.params.order_Id }));
+    res.status(201).send(await updateCartProductQty({ qty: req.body.qty, book_id: req.params.id, order_id: req.params.orderId }));
   } catch (ex) {
     next(ex);
   }
 });
 
-router.delete("/:productId", isLoggedIn, async (req, res, next) => {
+router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
   try {
     await deleteCartProduct({ order_id: req.params.order_Id, book_id: req.params.id });
     res.sendStatus(204);
