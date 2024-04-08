@@ -13,7 +13,7 @@ const router = express.Router();
 
 //route: /api/carts
 
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await fetchCarts());
   }
@@ -31,7 +31,7 @@ router.get("/:orderId", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post("/:orderId", async (req, res, next) => {
+router.post("/:orderId", isLoggedIn, async (req, res, next) => {
   try {
     res.status(201).send(await addCartProduct({ order_id: req.params.order_Id, book_id: req.body.book_id, qty: req.body.qty }));
   }
@@ -40,7 +40,7 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
-router.put("/:orderId", async (req, res, next) => {
+router.put("/:orderId", isLoggedIn, async (req, res, next) => {
   try {
     res.status(201).send(await updateCartProductQty({ qty: req.body.qty, book_id: req.params.id, order_id: req.params.order_Id }));
   } catch (ex) {
@@ -48,7 +48,7 @@ router.put("/:orderId", async (req, res, next) => {
   }
 });
 
-router.delete("/:productId", async (req, res, next) => {
+router.delete("/:productId", isLoggedIn, async (req, res, next) => {
   try {
     await deleteCartProduct({ order_id: req.params.order_Id, book_id: req.params.id });
     res.sendStatus(204);

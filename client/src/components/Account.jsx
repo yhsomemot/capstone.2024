@@ -38,14 +38,13 @@ export function Account({login, register}) {
       //update user
       //delete user
 
-      //add buttons to order history, update profile,
-
 
     return(
         <>
-        {/* {books.map(book => {
-            const isOrdered = 
-        })} */}
+        <h2>Links:</h2>
+        <button>order history</button>
+        <button>update profile</button>
+        <button>view cart</button>
   
          {/* <Link to={`/login`}><button onClick={ logout }>Logout { auth.email }</button></Link> */}
          <button onClick={ logout }>Logout { auth.email }</button>

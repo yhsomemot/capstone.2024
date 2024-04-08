@@ -11,6 +11,7 @@ const cors = require('cors')
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const cartRouter = require("./api/carts");
+const orderRouter = require("./api/orders");
 
 
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/carts", cartRouter);
+app.use("/api/orders", orderRouter);
 
 
 
