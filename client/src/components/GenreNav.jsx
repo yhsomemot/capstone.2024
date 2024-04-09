@@ -20,11 +20,11 @@ export function GenreNav() {
     }, []);
 
     return (
-        <>
+        <div id="genreNav">
         {genres.map((genre) => {
-            return <div key={genre.id}> <Link to={`/books/genre/${genre.id}`}>{genre.name}</Link> </div>
+            return <div className="genreLinks" key={genre.id}> <Link to={`/books/genre/${genre.id}`}>{genre.name}</Link> </div>
         })}
 
-        </>
+        </div>
     );
 }

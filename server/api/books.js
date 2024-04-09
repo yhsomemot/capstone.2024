@@ -13,6 +13,8 @@ const { isLoggedIn }=require("../db/auth.js")
 
 const router = express.Router();
 
+// route: /api/books
+
 //get all books
 router.get("/", async (req, res, next) => {
     try {

@@ -9,14 +9,18 @@ import { Register } from './components/Register'
 import { Account } from './components/Account'
 import { GenreNav } from './components/GenreNav'
 import { SingleGenre } from './components/SingleGenre'
+import { FilterContext } from './components/FilterContext'
+import { Cart } from './components/Cart'
 
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [email, setEmail] = useState("");
+  // const [login, setLogin] = useState("");
+  // const [register, setRegister] = useState("");
+  const [filter, setFilter] = useState("");
+  const [token, setToken] = useState()
 
   return (
-    <>
+    <FilterContext.Provider value={[filter, setFilter]}>
       <h1>BOOK STORE!</h1>
       <div><Navigations /></div>
       <br />
@@ -25,16 +29,16 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Books />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/books" element={<Books />} />
-          <Route path="/books/:bookId" element={<SingleBook />} />
-          <Route path="/register" element={<Register setToken={setToken} />} />
-          <Route path="/login" element={<Login setToken={setToken} email={email} setEmail={setEmail}/>} />
-          <Route path="/account" element={<Account token={token} email={email} setEmail={setEmail}/>} />
+          <Route path="/books/:bookId" element={<SingleBook token={token} />} />
+          <Route path="/register" element={<Register token={token} setToken={setToken} />} />
+          <Route path="/login" element={<Login token={token} setToken={setToken} />} />
+          <Route path="/account" element={<Account token={token} />} />
           <Route path="/books/genre/:bookId" element={<SingleGenre />} />
+          <Route path="/cart" element={<Cart token={token} />} />
         </Routes>
       </div>
-    </>
+    </FilterContext.Provider>
   )
 }
 

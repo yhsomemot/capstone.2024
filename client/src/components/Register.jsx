@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { API_URL } from "../App";
 
-export function Register() {
+export function Register({ token, setToken }) {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [auth, setAuth] = useState({});
 
     const submitRegister = ev => {
         ev.preventDefault();
@@ -21,28 +18,29 @@ export function Register() {
                 'Content-Type': 'application/json'
             }
         });
-
-        const json = await response.json();
-        console.log(response)
+        const result = await response.json();
+            setToken(result.token)
+            console.log(result)
+            console.log(response)
     };
 
     return (
-                <>
-                    <h1>
-                        Register
-                    </h1>
-        
-                    <form>
-                        <label>
-                            <input type="email" value={email} placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
-                        </label>
-                        <br />
-                        <label>
-                            <input type="password" value={password} placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
-                        </label>
-                        <br />
-                        <button onClick={submitRegister} disabled={!email || !password}>Register</button>
-                    </form>
-                </>
-            )
+        <>
+            <h1>
+                Register
+            </h1>
+
+            <form>
+                <label>
+                    <input type="email" value={email} placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
+                </label>
+                <br />
+                <label>
+                    <input type="password" value={password} placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
+                </label>
+                <br />
+                <button onClick={submitRegister} disabled={!email || !password}>Register</button>
+            </form>
+        </>
+    )
 }

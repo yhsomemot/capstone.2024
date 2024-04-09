@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { FilterContext } from "./FilterContext";
 
 export function Navigations() {
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useContext(FilterContext)
     const [books, setBooks] = useState([]);
 
 
@@ -12,20 +13,20 @@ export function Navigations() {
 
     return (
         <div id="navbar">
-            <input type="text" value={filter} placeholder="search" onChange={handleFilter} />
+            <input className="searchbar" type="text" value={filter} placeholder="search" onChange={handleFilter} />
 
-            <Link to="/books" className="books">
+            <Link to="/books" className="linkNav">
                 Books
             </Link>
-            <Link to="/login" className="login">
+            <Link to="/login" className="linkNav">
                 Login
             </Link>
-            <Link to="/account" className="account">
+            <Link to="/account" className="linkNav">
                 Account
             </Link>
-            {/* <Link to="/cart" className="cart">
+            <Link to="/cart" className="cart">
                Cart
-            </Link> */}
+            </Link>
             {/* <span className="hello">Hello, {email} </span> */}
         </div>
     );

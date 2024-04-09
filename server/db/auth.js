@@ -23,10 +23,8 @@ const authenticate = async ({ email, password }) => {
   };
 const findUserWithToken = async (token) => {
     let id;
-    console.log("insidefinduserwithtoken")
-    console.log(token)
     try {
-      const payload = await jwt.verify(token, JWT);
+      const payload = await jwt.verify(token.split(" ")[1], JWT);
       id = payload.id;
     } catch (ex) {
       const error = Error('not authorized1');
@@ -38,6 +36,7 @@ const findUserWithToken = async (token) => {
         SELECT id, email, is_admin FROM users WHERE id=$1;
       `;
     const result = await client.query(SQL, [id]);
+    console.log({result})
     if (!result.rows.length) {
       const error = Error('not authorized');
       error.status = 401;

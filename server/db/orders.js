@@ -3,58 +3,24 @@ const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
-const fetchOrders = async () => {
+const fetchUsersOrders = async ({user_id}) => {
     const SQL = `
-      SELECT * FROM orders
-    `;
-    const result = await client.query(SQL);
-    return result.rows;
-  };
-const fetchSingleOrder = async ({ user_id }) => {
-    const SQL = `
-      SELECT * FROM orders WHERE user_id = $1
+      SELECT * FROM orders WHERE user_id=$1
     `;
     const result = await client.query(SQL, [user_id]);
     return result.rows;
-  };
-const updateOrders = async ({ qty, book_id, user_id }) => {
+};
+
+const createOrder = async ({ user_id }) => {
     const SQL = `
-      UPDATE orders
-      SET qty=$1
-      WHERE book_id=$2 AND user_id=$3
-      RETURNING *
-  `;
-  const result = await client.query(SQL,[qty, book_id, user_id]);
-  return result.rows[0];
-  };
-const createOrders = async ({ user_id, book_id, qty }) => {
-    const SQL = `
-      INSERT INTO orders( user_id, book_id, qty) VALUES($1, $2, $3) RETURNING *
+    INSERT INTO orders(id, user_id) VALUES($1, $2) RETURNING *
     `;
-    const result = await client.query(SQL, [user_id, book_id, qty ]);
-    console.log(result)
+    const result = await client.query(SQL, [uuid.v4(), user_id]);
     return result.rows[0];
-  };
-const deleteOrderProducts = async ({ user_id, book_id }) => {
-    const SQL = `
-    DELETE FROM orders WHERE user_id=$1 AND book_id=$2
-  `;
-    await client.query(SQL, [user_id, book_id]);
-  };
-const deleteWholeOrder = async ({ user_id, book_id }) => {
-    const SQL = `
-    DELETE FROM orders WHERE user_id=$1 AND id=$2
-  `;
-    await client.query(SQL, [user_id, book_id]);
-  };
-  
+};
 
 module.exports = {
-    fetchSingleOrder,
-    fetchOrders,
-    updateOrders,
-    createOrders,
-    deleteOrderProducts,
-    deleteWholeOrder
+    createOrder,
+    fetchUsersOrders
 }
+

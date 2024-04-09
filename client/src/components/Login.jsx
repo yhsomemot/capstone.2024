@@ -2,38 +2,16 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
-
-export function Login() {
+export function Login({ token, setToken }) {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [auth, setAuth] = useState({});
 
     const submitLogin = ev => {
         ev.preventDefault();
         login({ email, password });
     }
-
-    const attemptLoginWithToken = async () => {
-        const token = window.localStorage.getItem('token');
-        console.log("token " + token)
-        if (token) {
-            const response = await fetch(`${API_URL}/api/users/me`, {
-                headers: {
-                    authorization: token
-                }
-            });
-            const json = await response.json();
-            if (response.ok) {
-                setAuth(json);
-            }
-            else {
-                window.localStorage.removeItem('token');
-            }
-        }
-    };
 
     const login = async (credentials) => {
         const response = await fetch(`${API_URL}/api/users/login`, {
@@ -43,11 +21,10 @@ export function Login() {
                 'Content-Type': 'application/json'
             }
         });
-
         const json = await response.json();
         if (response.ok) {
             window.localStorage.setItem('token', json.token);
-            attemptLoginWithToken();
+            setToken(json.token)
         }
         else {
             setError(error.message)
@@ -55,13 +32,7 @@ export function Login() {
         }
     };
 
-    useEffect(() => {
-        if (
-            loggedIn
-        ) {
-            navigate("/account")
-        }
-    }, [loggedIn])
+    //use navigate for login to main page
 
     return (
         <div>
@@ -76,7 +47,7 @@ export function Login() {
                     <input type="password" value={password} placeholder = "password" onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <br />
-
+                
                 <button onClick={submitLogin} disabled={ !email || !password }>Login</button>
                 <br />
                 <div>

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../App";
+// import { FilterContext } from "./FilterContext";
 // import {handleFilter} from "./Navigation"
+import { useFilter } from "../useFilter";
 
 export function Books() {
-
+    // const [filter] = useContext(FilterContext)
+    const [filter] = useFilter()
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -21,22 +24,21 @@ export function Books() {
     }, []);
 
     return (
-        <>
+        <div>
             <h1>Books</h1>
-            <ul>
-                {/* {books.filter((book) => book.name.toLowerCase().inclues(filter.toLowerCase())).map((book) => {
-                    return <li id="bookImg" key={book.id}>{book.name}
-                        <Link to={`/books/${book.id}`}>
-                    <img src={book.coverimage} />
-                </Link>
-
-                </li>
-                })} */}
-                {books.map((book) => {
-                    return <li id="bookImg" key={book.id}> {book.name}<Link to={`/books/${book.id}`}><img src={book.coverimage} /></Link></li>
+            <div id="books">
+                {books.filter((book) => book.name.toLocaleLowerCase().match(filter.toLocaleLowerCase())).map((book) => {
+                    return <div id="bookImg" key={book.id}>
+                        <Link to={`/books/${book.id}`}> <img className= "bookImg" src={book.coverimage} /> </Link>
+                        <br />
+                        <h2>{book.name}</h2>
+                        <h3>{book.author}</h3>
+                        <h3>{book.price}</h3>
+                        
+                </div>
                 })}
-            </ul>
+            </div>
             
-        </>
+        </div>
     )
 }

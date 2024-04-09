@@ -3,16 +3,15 @@ const { client } = require('./client.js')
 const { createTables, seedBooks, seedTable, seedUsers, seedGenre } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
 const { fetchBooks } = require("./db/books.js");
-const { fetchOrders } = require("./db/orders.js");
+const { fetchCarts } = require("./db/carts.js");
 const { fetchGenre } = require("./db/books.js");
 
 const cors = require('cors')
 
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
+const cartRouter = require("./api/carts");
 const orderRouter = require("./api/orders");
-// const authRouter = require("./api/users")
-// const genreRouter = require("./api/genre");
 
 
 
@@ -21,10 +20,8 @@ app.use(cors())
 app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
+app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
-// app.use("/api/genre", genreRouter);
-// app.use("/api/auth", authRouter);
-
 
 
 
@@ -40,13 +37,13 @@ const init = async () => {
     // console.log("genre", await fetchGenre())
 
     // await seedTable();
-    // console.log("orders", await fetchOrders())
+    // console.log("carts", await fetchCarts())
 
     await seedUsers();
     // console.log("users", await fetchUsers());
 
     await seedBooks();
-    console.log("books", await fetchBooks());
+    // console.log("books", await fetchBooks());
 
   
 
