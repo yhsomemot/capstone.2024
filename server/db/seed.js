@@ -33,7 +33,7 @@ const createTables = async () => {
           author VARCHAR(255) NOT NULL,
           price INTEGER DEFAULT 0,
           description TEXT,
-          inventory INTEGER DEFAULT 0,
+          inventory INTEGER DEFAULT 1,
           coverimage TEXT NOT NULL,
           genre_id INTEGER REFERENCES genre(id) NOT NULL,
           PRIMARY KEY (id)
