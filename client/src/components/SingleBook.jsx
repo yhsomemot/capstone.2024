@@ -29,7 +29,9 @@ export function SingleBook({ token }) {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify()
+                body: JSON.stringify({
+                    //add the bodies
+                })
             });
             const result = await response.json();
             setSuccessMessage(result.message);

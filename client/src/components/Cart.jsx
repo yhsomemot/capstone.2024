@@ -25,6 +25,7 @@ export function Cart({ token }) {
                 });
                 const result = await response.json();
                 setCarts(result);
+                console.log("cart", result)
                 if (response.ok) {
                     setAuth(result);
                 }

@@ -21,9 +21,9 @@ router.get("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post("/:orderId", isLoggedIn, async (req, res, next) => {
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
-    res.status(201).send(await addCartProduct({ order_id: req.params.order_Id, book_id: req.body.book_id, qty: req.body.qty }));
+    res.status(201).send(await addCartProduct({ order_id: req.body.order_Id, book_id: req.body.book_id, qty: req.body.qty }));
   }
   catch (ex) {
     next(ex);

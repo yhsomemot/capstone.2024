@@ -12,9 +12,9 @@ const fetchUserCart = async ({ order_id }) => {
     return result.rows;
 };
 
-const addCartProduct = async ({ order_id, book_id, qty }) => {
+const addCartProduct = async ({ order_id, book_id, qty}) => {
     const SQL = `
-      INSERT INTO carts(id, order_id, book_id, qty) VALUES($1, $2, $3, $4) RETURNING *
+      INSERT INTO carts(order_id, book_id, qty) VALUES($1, $2, $3) RETURNING *
     `;
     const result = await client.query(SQL, [order_id, book_id, qty]);
     console.log(result)
