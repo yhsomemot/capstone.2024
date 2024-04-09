@@ -23,14 +23,15 @@ export function SingleBook({ token }) {
 
     async function handleClick() {
         try {
-            const response = await fetch(`${API_URL}/api/carts/${bookId}`, {
+            const response = await fetch(`${API_URL}/api/carts/mycart`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    //add the bodies
+                    book_id: book.id,
+                    qty: 1
                 })
             });
             const result = await response.json();

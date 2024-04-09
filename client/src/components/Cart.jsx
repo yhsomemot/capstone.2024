@@ -8,15 +8,13 @@ import { API_URL } from "../App";
 
 export function Cart({ token }) {
     const [carts, setCarts] = useState([]);
-    const { id } = useParams();
-    const { orderId } = useParams();
     const { bookId } = useParams();
     const [auth, setAuth] = useState({})
 
     useEffect(() => {
         async function fetchUserCart() {
             try {
-                const response = fetch(`${API_URL}/api/carts`, {
+                const response = fetch(`${API_URL}/api/carts/mycart`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -42,12 +40,13 @@ export function Cart({ token }) {
 
     async function updateCartProductQty() {
         try {
-            const response = await fetch(`${API_URL}/api/carts/${orderId}`, {
+            const response = await fetch(`${API_URL}/api/carts/mycart`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
+                body: JSON.stringify(),
             });
             return await response.json();
         } catch (error) {
