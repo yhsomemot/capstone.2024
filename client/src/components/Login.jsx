@@ -7,32 +7,31 @@ export function Login({ token, setToken }) {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [auth, setAuth] = useState({});
+    // const [auth, setAuth] = useState({});
 
     const submitLogin = ev => {
         ev.preventDefault();
         login({ email, password });
     }
 
-    const attemptLoginWithToken = async () => {
-        const token = window.localStorage.getItem('token');
-        console.log("token " + token)
-        if (token) {
-            const response = await fetch(`${API_URL}/api/users/me`, {
-                headers: {
-                    authorization: token
-                }
-            });
-            const json = await response.json();
-            if (response.ok) {
-                setAuth(json);
-            }
-            else {
-                window.localStorage.removeItem('token');
-            }
-        }
-    };
+    // const attemptLoginWithToken = async () => {
+    //     const token = window.localStorage.getItem('token');
+    //     console.log("token " + token)
+    //     if (token) {
+    //         const response = await fetch(`${API_URL}/api/users/me`, {
+    //             headers: {
+    //                 authorization: `Bearer ${token}`
+    //             }
+    //         });
+    //         const json = await response.json();
+    //         setToken(json)
+    //         if (response.ok) {
+    //             setAuth(json);
+    //         } else {
+    //             window.localStorage.removeItem('token');
+    //         }
+    //     }
+    // };
 
     const login = async (credentials) => {
         const response = await fetch(`${API_URL}/api/users/login`, {
@@ -42,11 +41,11 @@ export function Login({ token, setToken }) {
                 'Content-Type': 'application/json'
             }
         });
-
         const json = await response.json();
         if (response.ok) {
             window.localStorage.setItem('token', json.token);
-            attemptLoginWithToken();
+            setToken(json.token)
+            // attemptLoginWithToken();
         }
         else {
             setError(error.message)
@@ -54,13 +53,7 @@ export function Login({ token, setToken }) {
         }
     };
 
-    // useEffect(() => {
-    //     if (
-    //         loggedIn
-    //     ) {
-    //         navigate("/account")
-    //     }
-    // }, [loggedIn])
+    //use navigate for login to main page
 
     return (
         <div>

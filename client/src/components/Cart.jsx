@@ -19,7 +19,7 @@ export function Cart({ token }) {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        authorization: token
+                        Authorization: `Bearer ${token}`
                     }
                 });
                 const result = await response.json();
@@ -38,8 +38,8 @@ export function Cart({ token }) {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: token
-                }
+                    Authorization: `Bearer ${token}`
+                },
             });
             return await response.json();
         } catch (error) {
@@ -54,8 +54,8 @@ export function Cart({ token }) {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: token
-                },
+                    Authorization: `Bearer ${token}`
+                }
             });
             return await response.json();
         } catch (error) {

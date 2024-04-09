@@ -14,8 +14,8 @@ import { Cart } from './components/Cart'
 
 
 function App() {
-  const [login, setLogin] = useState("");
-  const [register, setRegister] = useState("");
+  // const [login, setLogin] = useState("");
+  // const [register, setRegister] = useState("");
   const [filter, setFilter] = useState("");
   const [token, setToken] = useState()
 
@@ -31,9 +31,9 @@ function App() {
           <Route path="/" element={<Books />} />
           <Route path="/books" element={<Books />} />
           <Route path="/books/:bookId" element={<SingleBook token={token} />} />
-          <Route path="/register" element={<Register token={token} />} />
-          <Route path="/login" element={<Login login={ login } register={register} token={token} />} />
-          <Route path="/account" element={<Account login={ login } register={register} token={token} />} />
+          <Route path="/register" element={<Register token={token} setToken={setToken} />} />
+          <Route path="/login" element={<Login token={token} setToken={setToken} />} />
+          <Route path="/account" element={<Account token={token} />} />
           <Route path="/books/genre/:bookId" element={<SingleGenre />} />
           <Route path="/cart" element={<Cart token={token} />} />
         </Routes>

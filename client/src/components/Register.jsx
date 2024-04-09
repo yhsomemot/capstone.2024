@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { API_URL } from "../App";
 
-export function Register() {
+export function Register({ token, setToken }) {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
@@ -18,9 +18,10 @@ export function Register() {
                 'Content-Type': 'application/json'
             }
         });
-
-        const json = await response.json();
-        console.log(response)
+        const result = await response.json();
+            setToken(result.token)
+            console.log(result)
+            console.log(response)
     };
 
     return (

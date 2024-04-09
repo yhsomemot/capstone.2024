@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function SingleBook({token}) {
+export function SingleBook({ token }) {
     const [book, setBook] = useState({})
     const { bookId } = useParams();
-    const [successMessage, setSuccessMessage] =useState("");
-    const [error, setError] = useState ("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
         async function fetchSingleBook() {
@@ -27,11 +27,9 @@ export function SingleBook({token}) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: token
+                    Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    available: false
-                })
+                body: JSON.stringify()
             });
             const result = await response.json();
             setSuccessMessage(result.message);

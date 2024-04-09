@@ -2,9 +2,29 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function Account({login, register}) {
-    const [auth, setAuth] = useState({});
+export function Account({token}) {
+    // const [user, setUser] = useState({});
+    const [auth, setAuth] = useState({})
     const [books, setBooks] = useState([]);
+
+    // useEffect(() =>{
+    //     const fetchUser = async () => {
+    //         const response = await fetch(`${API_URL}/api/users/me`,
+    //         {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         });
+    //         const json = await response.json();
+    //         if (response.ok) {
+    //             setUser(json);
+    //         } else {
+    //             window.localStorage.removeItem('token');
+    //         }
+    //     };
+    //     fetchUser();
+    // },[])
 
     useEffect(()=> {
         attemptLoginWithToken();
@@ -16,7 +36,7 @@ export function Account({login, register}) {
         if (token) {
             const response = await fetch(`${API_URL}/api/users/me`, {
                 headers: {
-                    authorization: token
+                    Authorization: `Bearer ${token}`
                 }
             });
             const json = await response.json();
@@ -28,6 +48,8 @@ export function Account({login, register}) {
             }
         }
     };
+
+    
 
     const logout = ()=> {
         window.localStorage.removeItem('token');
