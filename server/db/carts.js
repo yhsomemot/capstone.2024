@@ -19,8 +19,7 @@ const addCartProduct = async ({ order_id, book_id, qty }) => {
   const SQL = `
       INSERT INTO carts(id, order_id, book_id, qty) VALUES($1, $2, $3, $4) RETURNING *
     `;
-  const result = await client.query(SQL, [order_id, book_id, qty]);
-  console.log(result)
+  const result = await client.query(SQL, [uuid.v4(), order_id, book_id, qty]);
   return result.rows[0];
 };
 
