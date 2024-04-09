@@ -1,7 +1,6 @@
 const express = require("express");
 const {
     fetchUserCart,
-    fetchCarts,
     updateCartProductQty,
     addCartProduct,
     deleteCartProduct,
@@ -15,16 +14,7 @@ const router = express.Router();
 
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
-    res.send(await fetchCarts());
-  }
-  catch (ex) {
-    next(ex);
-  }
-});
-
-router.get("/:orderId", isLoggedIn, async (req, res, next) => {
-  try {
-    res.send(await fetchUserCart({order_id: req.params.id}));
+    res.send(await fetchUserCart({user_id: req.user.id}));
   }
   catch (ex) {
     next(ex);

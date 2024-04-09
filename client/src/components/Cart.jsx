@@ -11,11 +11,12 @@ export function Cart({ token }) {
     const { id } = useParams();
     const { orderId } = useParams();
     const { bookId } = useParams();
+    const [auth, setAuth] = useState({})
 
     useEffect(() => {
         async function fetchUserCart() {
             try {
-                const response = fetch(`${API_URL}/api/carts/${id}`, {
+                const response = fetch(`${API_URL}/api/carts`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -24,6 +25,12 @@ export function Cart({ token }) {
                 });
                 const result = await response.json();
                 setCarts(result);
+                if (response.ok) {
+                    setAuth(result);
+                }
+                else {
+                    window.localStorage.removeItem('token');
+                }
             } catch (error) {
                 console.log(error);
             }

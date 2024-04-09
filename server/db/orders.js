@@ -3,14 +3,6 @@ const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const fetchOrders = async () => {
-    const SQL = `
-      SELECT * FROM orders
-    `;
-    const result = await client.query(SQL);
-    return result.rows;
-};
-
 const fetchUsersOrders = async ({user_id}) => {
     const SQL = `
       SELECT * FROM orders WHERE user_id=$1
@@ -28,7 +20,6 @@ const createOrder = async ({ user_id }) => {
 };
 
 module.exports = {
-    fetchOrders,
     createOrder,
     fetchUsersOrders
 }

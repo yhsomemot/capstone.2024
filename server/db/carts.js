@@ -4,14 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const fetchCarts = async () => {
-    const SQL = `
-      SELECT * FROM carts
-    `;
-    const result = await client.query(SQL);
-    return result.rows;
-};
-
 const fetchUserCart = async ({ order_id }) => {
     const SQL = `
       SELECT * FROM carts WHERE order_id = $1
@@ -58,7 +50,6 @@ const deleteCartProduct = async ({ order_id, book_id }) => {
 
 module.exports = {
     fetchUserCart,
-    fetchCarts,
     updateCartProductQty,
     addCartProduct,
     deleteCartProduct,
