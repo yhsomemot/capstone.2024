@@ -7,12 +7,12 @@ const { createGenre } = require('./books.js');
 //add a cart table? to keep track of status? no if delete cart is a thing.
 const createTables = async () => {
   const SQL = `
-        DROP TABLE IF EXISTS cart_products CASCADE;
-        DROP TABLE IF EXISTS orders CASCADE;
-        DROP TABLE IF EXISTS users CASCADE;
-        DROP TABLE IF EXISTS books CASCADE;
-        DROP TABLE IF EXISTS genre CASCADE;
-        DROP TYPE IF EXISTS status CASCADE;
+        DROP TABLE IF EXISTS cart_products;
+        DROP TABLE IF EXISTS orders;
+        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS books;
+        DROP TABLE IF EXISTS genre;
+        DROP TYPE IF EXISTS status;
         
         CREATE TABLE users(
           id UUID DEFAULT gen_random_uuid(),

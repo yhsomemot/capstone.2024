@@ -80,7 +80,7 @@ router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
     const orderId = await fetchUsersOrders(req.user.id);
     await deleteCartProduct({
       order_id: orderId.id,
-      book_id: req.params.book_id
+      book_id: req.params.bookId
     });
     res.sendStatus(204);
   } catch (ex) {

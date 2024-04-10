@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
 //get order
@@ -9,7 +9,8 @@ import { API_URL } from "../App";
 export function Cart({ token }) {
     const [carts, setCarts] = useState([]);
     const { bookId } = useParams();
-    const [auth, setAuth] = useState({})
+    // const [auth, setAuth] = useState({})
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchUserCart() {
@@ -24,18 +25,18 @@ export function Cart({ token }) {
                 const result = await response.json();
                 setCarts(result);
                 // console.log("cart", result)
-                if (response.ok) {
-                    setAuth(result);
-                }
-                else {
-                    window.localStorage.removeItem('token');
-                }
+                // if (response.ok) {
+                //     setToken(result);
+                // }
+                // else {
+                //     window.localStorage.removeItem('token');
+                // }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchUserCart();
-    }, [token]);
+    }, []);
 
 
     async function updateCartProductQty() {
@@ -73,7 +74,7 @@ export function Cart({ token }) {
     return (
         <>
             <h1>My cart</h1>
-            <table>
+            {/* <table>
                 <thead className="">
                     <tr>
                         <th>name</th>
@@ -98,8 +99,36 @@ export function Cart({ token }) {
                     })}
                 </tbody>
             </table>
-            <button>Check out</button> 
-            {/* navigate button to checkout page */}
+                <button onClick={() => navigate("/checkout")}>Check out</button> */}
+            {!token ? (<div> <h1>please log in </h1></div>) : (<div><table>
+                <thead className="">
+                    <tr>
+                        <th>name</th>
+                        <th>quantity</th>
+                    </tr>
+                </thead>
+                <tbody className="">
+                    {carts.map((cart) => {
+                        return (
+                            <tr key={cart.id}>
+                                <td>{cart.name}</td>
+                                <td>{cart.qty}</td>
+                                <td>
+                                    <button onClick={async () => await deleteCartProduct(carts.id)}>
+                                        delete </button>
+                                </td>
+                                <td>
+                                    <button onClick={async () => await updateCartProductQty(carts.id)}> add </button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+                <button onClick={() => navigate("/checkout")}>Check out</button>   </div>
+
+            )}
+
         </>
     )
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function Account({ token }) {
+export function Account({ token, setToken }) {
     const [auth, setAuth] = useState({})
+    const navigate = useNavigate();
 
     useEffect(() => {
         attemptLoginWithToken();
@@ -19,7 +20,7 @@ export function Account({ token }) {
             });
             const json = await response.json();
             if (response.ok) {
-                setAuth(json);
+                setToken(json);
             }
             else {
                 window.localStorage.removeItem('token');
@@ -29,7 +30,8 @@ export function Account({ token }) {
 
     const logout = () => {
         window.localStorage.removeItem('token');
-        setAuth({});
+        setToken({});
+        console.log("logged out")
     };
 
     //get user data
@@ -40,13 +42,15 @@ export function Account({ token }) {
     return (
         <div className="accountButton">
             <h2> Links:</h2>
-            <button onClick={logout}>Logout {auth.email}</button>
+            <button onClick={logout}>Logout</button>
+            {/* <button onClick={logout}>Logout {auth.email}</button> */}
             <br />
-            <button>order history</button>
+
+            <button onClick={() => navigate("/orderhistory")}>order history</button>
             <br />
-            <button>update profile</button>
+            <button  onClick={() => navigate("/updateprofile")}>update profile</button>
             <br />
-            <button>view cart</button>
+            <button onClick = {() => navigate("/cart")}>view cart</button>
             <br />
             <button>delete account</button>
         </div>

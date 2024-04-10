@@ -11,6 +11,7 @@ export function Login({ token, setToken }) {
     const submitLogin = ev => {
         ev.preventDefault();
         login({ email, password });
+
     }
 
     const login = async (credentials) => {
@@ -32,6 +33,10 @@ export function Login({ token, setToken }) {
         }
     };
 
+    const navigateHome = () => {
+        navigate("/");
+      };
+//button onClick={() => {logout(); navigateHome()}}>Logout</button>
     //use navigate for login to main page
 
     return (
@@ -47,8 +52,8 @@ export function Login({ token, setToken }) {
                     <input type="password" value={password} placeholder = "password" onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <br />
-                
                 <button onClick={submitLogin} disabled={ !email || !password }>Login</button>
+                {/* <Link to="/books"><button>Link</button></Link> */}
                 <br />
                 <div>
                     <Link to="/register" className="nav">
