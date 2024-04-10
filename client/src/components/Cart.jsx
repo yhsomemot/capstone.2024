@@ -24,18 +24,18 @@ export function Cart({ token }) {
                 const result = await response.json();
                 setCarts(result);
                 // console.log("cart", result)
-                // if (response.ok) {
-                //     setAuth(result);
-                // }
-                // else {
-                //     window.localStorage.removeItem('token');
-                // }
+                if (response.ok) {
+                    setAuth(result);
+                }
+                else {
+                    window.localStorage.removeItem('token');
+                }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchUserCart();
-    }, []);
+    }, [token]);
 
 
     async function updateCartProductQty() {
@@ -77,7 +77,7 @@ export function Cart({ token }) {
                 <thead className="">
                     <tr>
                         <th>name</th>
-                        <th>action</th>
+                        <th>quantity</th>
                     </tr>
                 </thead>
                 <tbody className="">
@@ -85,6 +85,7 @@ export function Cart({ token }) {
                         return (
                             <tr key={cart.id}>
                                 <td>{cart.name}</td>
+                                <td>{cart.qty}</td>
                                 <td>
                                     <button onClick={async () => await deleteCartProduct(carts.id)}>
                                         delete </button>
@@ -97,6 +98,8 @@ export function Cart({ token }) {
                     })}
                 </tbody>
             </table>
+            <button>Check out</button> 
+            {/* navigate button to checkout page */}
         </>
     )
 }

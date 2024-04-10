@@ -4,13 +4,23 @@ const {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
+  fetchUsersOrders, 
+  createOrder
 } = require("../db/cart_products.js")
-const { fetchUsersOrders, createOrder } = require("../db/orders.js")
 const { isLoggedIn } = require("../db/auth.js")
 
 const router = express.Router();
 
 //route: /api/mycart
+
+router.get("/orders", isLoggedIn, async (req, res, next) => {
+  try {
+      res.send(await fetchUsersOrders({ user_id: req.user.id }));
+  }
+  catch (ex) {
+      next(ex);
+  }
+});
 
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
