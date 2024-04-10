@@ -39,7 +39,7 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const orderId = await fetchUsersOrders(req.user.id);
-    console.log("LINE 32", orderId)
+    // console.log("LINE 32", orderId)
     if (!orderId) {
       const order = await createOrder({ user_id: req.user.id });
       res.status(201).send(await addCartProduct({
