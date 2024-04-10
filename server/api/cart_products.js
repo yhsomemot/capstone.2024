@@ -4,29 +4,18 @@ const {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
-  createOrder
-  // deleteWholeCart
-} = require("../db/carts.js")
-const { fetchUsersOrders } = require("../db/orders.js")
+} = require("../db/cart_products.js")
+const { fetchUsersOrders, createOrder } = require("../db/orders.js")
 const { isLoggedIn } = require("../db/auth.js")
 
 const router = express.Router();
 
 //route: /api/carts
 
-// router.get("/", isLoggedIn, async (req, res, next) => {
-//   try {
-//     res.send(await fetchUserCart({ user_id: req.user.id }));
-//   }
-//   catch (ex) {
-//     next(ex);
-//   }
-// });
-
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const orderId = await fetchUsersOrders({user_id:req.user.id});
-    console.log({orderId}, 'THIS IS LINE 29 FROM FETCHING');
+    // console.log({orderId}, 'THIS IS LINE 29 FROM FETCHING');
     
     //If this comes back as false
     //We need to create a cart for the User
@@ -81,16 +70,5 @@ router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
     next(ex);
   }
 });
-
-//delete after check out.
-// router.delete("/:id/user/:userId", async (req, res, next) => {
-//   try {
-//     await deleteWholeOrder({ id: req.params.id, order_id: req.params.userId });
-//     res.sendStatus(204);
-//   } catch (ex) {
-//     next(ex);
-//   }
-// });
-
 
 module.exports = router;

@@ -3,14 +3,14 @@ const { client } = require('./client.js')
 const { createTables, seedBooks, seedTable, seedUsers, seedGenre } = require("./db/seed.js")
 const { fetchUsers } = require("./db/users.js")
 const { fetchBooks } = require("./db/books.js");
-const { fetchCarts } = require("./db/carts.js");
+const { fetchCarts } = require("./db/cart_products.js");
 const { fetchGenre } = require("./db/books.js");
 
 const cors = require('cors')
 
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
-const cartRouter = require("./api/carts");
+const cartRouter = require("./api/cart_products.js");
 const orderRouter = require("./api/orders");
 //const checkoutRouter = require("./api/checkout")
 
