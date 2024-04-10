@@ -8,7 +8,8 @@ const fetchUsersOrders = async ({user_id}) => {
       SELECT * FROM orders WHERE user_id=$1
     `;
     const result = await client.query(SQL, [user_id]);
-    return result.rows;
+    console.log(result.rows)
+    return result.rows[result.rows.length-1];
 };
 
 // const fetchCart = async ({ order_id }) => {

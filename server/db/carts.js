@@ -42,6 +42,16 @@ const deleteCartProduct = async ({ order_id, book_id }) => {
   await client.query(SQL, [order_id, book_id]);
 };
 
+
+const createOrder = async ({user_id}) => {
+  const CREATE_ORDER = `
+  INSERT into orders (id, user_id, current_status) VALUES($1,$2,$3) RETURNING *;
+  `
+  const response =await client.query(CREATE_ORDER, [uuid.v4(), user_id, 'pending']);
+  //return response;
+  return response.rows[0];
+}
+
 // const deleteWholeCart = async ({ order_id, book_id }) => {
 //     const SQL = `
 //     DELETE FROM carts WHERE order_id=$1 AND id=$2
@@ -55,5 +65,6 @@ module.exports = {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
+  createOrder
   // deleteWholeCart
 }

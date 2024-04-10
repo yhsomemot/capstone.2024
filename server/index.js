@@ -12,7 +12,7 @@ const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const cartRouter = require("./api/carts");
 const orderRouter = require("./api/orders");
-
+//const checkoutRouter = require("./api/checkout")
 
 
 const app = express();
@@ -22,6 +22,7 @@ app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
+//app.use("/api/checkout", checkoutRouter);
 
 
 

@@ -14,7 +14,7 @@ export function Cart({ token }) {
     useEffect(() => {
         async function fetchUserCart() {
             try {
-                const response = fetch(`${API_URL}/api/carts/mycart`, {
+                const response = await fetch(`${API_URL}/api/carts`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export function Cart({ token }) {
 
     async function updateCartProductQty() {
         try {
-            const response = await fetch(`${API_URL}/api/carts/mycart`, {
+            const response = await fetch(`${API_URL}/api/carts`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +56,6 @@ export function Cart({ token }) {
 
     async function deleteCartProduct() {
         try {
-            console.log("book has been returned!")
             const response = await fetch(`${API_URL}/api/carts/${bookId}`, {
                 method: "DELETE",
                 headers: {
@@ -88,7 +87,10 @@ export function Cart({ token }) {
                                 <td>{cart.name}</td>
                                 <td>
                                     <button onClick={async () => await deleteCartProduct(carts.id)}>
-                                        Return </button>
+                                        delete </button>
+                                </td>
+                                <td>
+                                    <button onClick={async () => await updateCartProductQty(carts.id)}> add </button>
                                 </td>
                             </tr>
                         )

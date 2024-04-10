@@ -4,6 +4,7 @@ const {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
+  createOrder
   // deleteWholeCart
 } = require("../db/carts.js")
 const { fetchUsersOrders } = require("../db/orders.js")
@@ -13,39 +14,50 @@ const router = express.Router();
 
 //route: /api/carts
 
+// router.get("/", isLoggedIn, async (req, res, next) => {
+//   try {
+//     res.send(await fetchUserCart({ user_id: req.user.id }));
+//   }
+//   catch (ex) {
+//     next(ex);
+//   }
+// });
+
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
-    res.send(await fetchUserCart({ user_id: req.user.id }));
-  }
-  catch (ex) {
-    next(ex);
-  }
-});
+    const orderId = await fetchUsersOrders({user_id:req.user.id});
+    console.log({orderId}, 'THIS IS LINE 29 FROM FETCHING');
+    
+    //If this comes back as false
+    //We need to create a cart for the User
 
-router.get("/mycart", isLoggedIn, async (req, res, next) => {
-  try {
-    const orderId = await fetchUsersOrders(req.user.id);
     res.send(await fetchUserCart({ order_id: orderId.id }));
   } catch (ex) {
     next(ex);
   }
 });
 
-router.post("/mycart", isLoggedIn, async (req, res, next) => {
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const orderId = await fetchUsersOrders(req.user.id);
-    res.status(201).send(await addCartProduct({
-      order_id: orderId.id,
-      book_id: req.body.book_id,
-      qty: req.body.qty
-    }));
+    if (!orderId) {
+      const order = await createOrder({user_id:req.user.id});
+      
+      res.status(201).send(await addCartProduct({
+        order_id: order.id,
+        book_id: req.body.book_id,
+        qty: req.body.qty
+      }))
+      // Using Order as Cart
+      //If orderId is falsy, create an Order
+    }
   }
   catch (ex) {
     next(ex);
   }
 });
 
-router.put("/mycart", isLoggedIn, async (req, res, next) => {
+router.put("/", isLoggedIn, async (req, res, next) => {
   try {
     const orderId = await fetchUsersOrders(req.user.id);
     res.status(201).send(await updateCartProductQty({
