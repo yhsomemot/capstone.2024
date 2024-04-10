@@ -23,7 +23,7 @@ export function SingleBook({ token }) {
 
     async function handleClick() {
         try {
-            const response = await fetch(`${API_URL}/api/carts`, {
+            const response = await fetch(`${API_URL}/api/mycart`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export function SingleBook({ token }) {
                 <img className="singlebookImg" id="singlebookItem" src={book.coverimage} />
                 <p id="singlebookItem">{book.description}</p>
             </div>
-            
+
             {book.inventory}
 
             <div id="singlebuttons">
