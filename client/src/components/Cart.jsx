@@ -14,7 +14,7 @@ export function Cart({ token }) {
     useEffect(() => {
         async function fetchUserCart() {
             try {
-                const response = fetch(`${API_URL}/api/carts/mycart`, {
+                const response = await fetch(`${API_URL}/api/mycart`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -23,13 +23,13 @@ export function Cart({ token }) {
                 });
                 const result = await response.json();
                 setCarts(result);
-                console.log("cart", result)
-                if (response.ok) {
-                    setAuth(result);
-                }
-                else {
-                    window.localStorage.removeItem('token');
-                }
+                // console.log("cart", result)
+                // if (response.ok) {
+                //     setAuth(result);
+                // }
+                // else {
+                //     window.localStorage.removeItem('token');
+                // }
             } catch (error) {
                 console.log(error);
             }
@@ -40,7 +40,7 @@ export function Cart({ token }) {
 
     async function updateCartProductQty() {
         try {
-            const response = await fetch(`${API_URL}/api/carts/mycart`, {
+            const response = await fetch(`${API_URL}/api/mycart`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,8 +56,7 @@ export function Cart({ token }) {
 
     async function deleteCartProduct() {
         try {
-            console.log("book has been returned!")
-            const response = await fetch(`${API_URL}/api/carts/${bookId}`, {
+            const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -88,7 +87,10 @@ export function Cart({ token }) {
                                 <td>{cart.name}</td>
                                 <td>
                                     <button onClick={async () => await deleteCartProduct(carts.id)}>
-                                        Return </button>
+                                        delete </button>
+                                </td>
+                                <td>
+                                    <button onClick={async () => await updateCartProductQty(carts.id)}> add </button>
                                 </td>
                             </tr>
                         )
