@@ -43,7 +43,7 @@ const createTables = async () => {
         CREATE TABLE orders(
           id UUID DEFAULT gen_random_uuid(),
           user_id UUID REFERENCES users(id) NOT NULL,
-          current_status status, 
+          order_status status, 
           PRIMARY KEY (id)
         );
         CREATE TABLE cart_products(
@@ -128,7 +128,7 @@ const createTables = async () => {
 //     }),
 //   ]); 
 //   const [moeOrder] = await Promise.all([
-//     createOrder({ user_id: moe.id, current_status: 'pending' }),
+//     createOrder({ user_id: moe.id, order_status: 'pending' }),
 //   ]);
 //   const cartProducts = await Promise.all([
 //     addCartProduct({ user_id: moeOrder.id, book_id: book[0].id, qty: 1, }),

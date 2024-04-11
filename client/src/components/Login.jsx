@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
-export function Login({ token, setToken }) {
+export function Login({ token, setToken, user, setUser }) {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [successMessage, setSuccessMessage] = useState("")
     const [error, setError] = useState("");
 
     const submitLogin = ev => {
@@ -22,26 +23,23 @@ export function Login({ token, setToken }) {
                 'Content-Type': 'application/json'
             }
         });
-        const json = await response.json();
+        const result = await response.json();
         if (response.ok) {
-            window.localStorage.setItem('token', json.token);
-            setToken(json.token)
+            window.localStorage.setItem('token', result.token);
+            setToken(result.token)
+            // setUser(`${email}`)
+            setSuccessMessage("Logged in")
         }
         else {
-            setError(error.message)
-            console.log(json);
+            setError("Failed to log in")
+            console.log(result);
         }
     };
-
-    const navigateHome = () => {
-        navigate("/");
-      };
-//button onClick={() => {logout(); navigateHome()}}>Logout</button>
-    //use navigate for login to main page
 
     return (
         <div>
             <h1 className="logIn">Log In</h1>
+            {/* <h2>hello {email}</h2> */}
 
             <form className="loginForm">
                 <label id="email">
@@ -52,8 +50,11 @@ export function Login({ token, setToken }) {
                     <input type="password" value={password} placeholder = "password" onChange={(e) => { setPassword(e.target.value) }} />
                 </label>
                 <br />
+                {error && <p>{error}</p>}
+                {successMessage && <h3>{successMessage}</h3>}
                 <button onClick={submitLogin} disabled={ !email || !password }>Login</button>
                 {/* <Link to="/books"><button>Link</button></Link> */}
+                
                 <br />
                 <div>
                     <Link to="/register" className="nav">

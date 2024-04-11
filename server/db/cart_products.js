@@ -14,7 +14,7 @@ const fetchUsersOrders = async ({ user_id }) => {
 
 const createOrder = async ({ user_id }) => {
   const CREATE_ORDER = `
-  INSERT into orders (id, user_id, current_status) 
+  INSERT into orders (id, user_id, order_status) 
   VALUES($1,$2,$3) 
   RETURNING *
   `;

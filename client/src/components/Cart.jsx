@@ -100,6 +100,7 @@ export function Cart({ token }) {
                 </tbody>
             </table>
                 <button onClick={() => navigate("/checkout")}>Check out</button> */}
+                
             {!token ? (<div> <h1>please log in </h1></div>) : (<div><table>
                 <thead className="">
                     <tr>
