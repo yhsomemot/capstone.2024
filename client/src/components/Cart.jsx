@@ -6,7 +6,7 @@ import { API_URL } from "../App";
 //post order
 //delete order
 
-export function Cart({ token }) {
+export function Cart({ token, setToken }) {
     const [carts, setCarts] = useState([]);
     const { bookId } = useParams();
     // const [auth, setAuth] = useState({})

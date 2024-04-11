@@ -33,16 +33,16 @@ const init = async () => {
     await createTables();
     console.log('tables created');
 
-    await seedGenre();
+    // await seedGenre();
     // console.log("genre", await fetchGenre())
 
-    // await seedTable();
-    // console.log("carts", await fetchUserOrder())
+    await seedTable();
+    console.log("carts", await fetchUserCart())
 
-    await seedUsers();
+    // await seedUsers();
     // console.log("users", await fetchUsers());
 
-    await seedBooks();
+    // await seedBooks();
     // console.log("books", await fetchBooks());
 
   
