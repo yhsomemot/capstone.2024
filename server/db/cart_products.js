@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const fetchUserCart = async (user_id) => {
   const SQL = `
-    SELECT books.id, books.name, books.price FROM cart_products
+    SELECT books.id, books.name, books.price, cart_products.qty FROM cart_products
     INNER JOIN books
     ON books.id = cart_products.book_id
     WHERE cart_products.user_id = $1

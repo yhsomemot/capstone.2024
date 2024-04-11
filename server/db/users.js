@@ -3,13 +3,20 @@ const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const fetchUsers = async () => {
+const fetchUser = async (user_id) => {
     const SQL = `
       SELECT * FROM users;
     `;
-    const result = await client.query(SQL);
+    const result = await client.query(SQL,[user_id]);
     return result.rows;
   };
+  // const fetchUsers = async () => {
+  //   const SQL = `
+  //     SELECT * FROM users;
+  //   `;
+  //   const result = await client.query(SQL,[]);
+  //   return result.rows;
+  // };
 const createUser = async ({ email, password, address, payment_info, is_admin }) => {
     const SQL = `
         INSERT INTO users(id, email, password, address, payment_info, is_admin) VALUES($1, $2, $3, $4, $5, $6) RETURNING *
@@ -36,7 +43,7 @@ const deleteUser = async ({id}) => {
 
 
 module.exports = {
-    fetchUsers,
+    fetchUser,
     createUser,
     updateUser,
     deleteUser

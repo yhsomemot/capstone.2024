@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-    fetchUsers,
+    fetchUser,
     createUser,
     updateUser,
     deleteUser
@@ -40,14 +40,24 @@ router.post("/register", async (req, res, next) => {
       }
 });
 
+//fetch single user
 router.get("/", isLoggedIn, async (req, res, next) => {
     try {
-        res.send(await fetchUsers());
+        res.send(await fetchUser(req.user.id));
       }
       catch (ex) {
         next(ex);
       }
 });
+//fetch all users for admin
+// router.get("/", isLoggedIn, async (req, res, next) => {
+//   try {
+//       res.send(await fetchUsers());
+//     }
+//     catch (ex) {
+//       next(ex);
+//     }
+// });
 router.put("/:id", isLoggedIn, async (req, res, next) => {
     try {
         res.status(201).send(await updateUser({...req.body, id: req.params.id}));
