@@ -39,13 +39,6 @@ const createTables = async () => {
           genre_id INTEGER REFERENCES genre(id) NOT NULL,
           PRIMARY KEY (id)
         );
-        CREATE TYPE status AS ENUM ('pending', 'complete');
-        CREATE TABLE orders(
-          id UUID DEFAULT gen_random_uuid(),
-          user_id UUID REFERENCES users(id) NOT NULL,
-          order_status status, 
-          PRIMARY KEY (id)
-        );
         CREATE TABLE cart_products(
           id UUID DEFAULT gen_random_uuid(),
           order_id UUID REFERENCES orders(id) NOT NULL,
@@ -134,12 +127,9 @@ const seedTable = async () => {
       genre_id: 'Fiction'
     }),
   ]);
-  const [moeCart]= await Promise.all([
-    createOrder({ user_id: moe.id, order_status: 'pending' }),
-  ]);
   const cartProducts = await Promise.all([
-    addCartProduct({ order_id: moeCart.id, book_id: book[0].id, qty: 1, }),
-    addCartProduct({ order_id: moeCart.id, book_id: book[1].id, qty: 1, }),
+    addCartProduct({ user_id: moe.id, book_id: book[0].id, qty: 1, }),
+    addCartProduct({ user_id: moe.id, book_id: book[1].id, qty: 1, }),
   ]);
   console.log("user's cart", cartProducts)
 
