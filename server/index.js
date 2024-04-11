@@ -38,6 +38,7 @@ const init = async () => {
 
     await seedTable();
     console.log("carts", await fetchUserCart())
+    // console.log("books", await fetchBooks())
 
     // await seedUsers();
     // console.log("users", await fetchUsers());

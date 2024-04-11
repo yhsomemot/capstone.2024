@@ -6,11 +6,12 @@ import { API_URL } from "../App";
 //post order
 //delete order
 
-export function Cart({ token, setToken }) {
+export function Cart({ token }) {
     const [carts, setCarts] = useState([]);
     const { bookId } = useParams();
     // const [auth, setAuth] = useState({})
     const navigate = useNavigate();
+
 
     useEffect(() => {
         async function fetchUserCart() {
@@ -24,7 +25,7 @@ export function Cart({ token, setToken }) {
                 });
                 const result = await response.json();
                 setCarts(result);
-                // console.log("cart", result)
+                console.log("cart", result)
                 // if (response.ok) {
                 //     setToken(result);
                 // }
@@ -36,7 +37,7 @@ export function Cart({ token, setToken }) {
             }
         }
         fetchUserCart();
-    }, []);
+    }, [token]);
 
 
     async function updateCartProductQty() {
