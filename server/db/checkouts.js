@@ -11,5 +11,5 @@ const checkout = async (user_id) => {
 };
 
 module.exports = {
- 
+  checkout
   }
