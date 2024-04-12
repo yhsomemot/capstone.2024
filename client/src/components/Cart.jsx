@@ -8,7 +8,7 @@ import { API_URL } from "../App";
 
 export function Cart({ token }) {
     const [carts, setCarts] = useState([]);
-    const { bookId } = useParams();
+    // const { bookId } = useParams();
     // const [auth, setAuth] = useState({})
     const navigate = useNavigate();
 
@@ -147,7 +147,7 @@ export function Cart({ token }) {
                     })}
                 </tbody>
             </table>
-                <button onClick={async () => await checkout()}>Check out</button>   </div>
+                <button onClick={() => navigate("/checkout")}>Check out</button>   </div>
 
             )}
 

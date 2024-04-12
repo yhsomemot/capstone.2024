@@ -41,7 +41,7 @@ function App() {
           <Route path="/books/genre/:bookId" element={<SingleGenre />} />
           <Route path="/cart" element={<Cart token={token} setToken={setToken} />} />
           <Route path="/orderhistory" element={<OrderHistory />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout token={token} />} />
           <Route path="/updateprofile" element={<UpdateProfile />} />
         </Routes>
       </div>
