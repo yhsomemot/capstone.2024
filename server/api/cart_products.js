@@ -4,6 +4,7 @@ const {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
+  checkout
 } = require("../db/cart_products.js")
 const { isLoggedIn } = require("../db/auth.js")
 
@@ -46,17 +47,20 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 //   }
 // });
 
-// router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
+router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
+  try {
+    res.status(204).send(await deleteCartProduct(req.user.id, req.params.bookId))
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+
+// app.delete('/api/product/:id', isLoggedIn, isAdmin, async (req, res, next) => {
 //   try {
-//     const orderId = await fetchUsersOrders(req.user.id);
-//     await deleteCartProduct({
-//       order_id: orderId.id,
-//       book_id: req.params.bookId
-//     });
-//     res.sendStatus(204);
+//     res.status(204).send(await deleteProduct({id: req.params.id}));
 //   } catch (ex) {
 //     next(ex);
 //   }
 // });
-
 module.exports = router;
