@@ -5,9 +5,3 @@ https://www.figma.com/file/OyJZI7K5yhhBZryLO2JHcU/Capstone-wireframe?type=design
 
 Onrender
 https://capstone-2024.onrender.com
-routes:
-/api/books
-/api/book/:bookId
-need authorization:
-/api/users
-/api/mycart
