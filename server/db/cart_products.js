@@ -33,10 +33,9 @@ const updateCartProductQty = async ({ qty, book_id, user_id }) => {
   return result.rows[0];
 };
 
-
-const deleteCartProduct = async ({ user_id, book_id }) => {
+const deleteCartProduct = async (user_id, book_id) => {
   const SQL = `
-    DELETE FROM cart_products WHERE user_id=$1 AND book_id=$2 RETURNING *
+    DELETE FROM cart_products WHERE user_id=$1 AND book_id=$2
   `;
   await client.query(SQL, [user_id, book_id]);
 };
@@ -47,5 +46,5 @@ module.exports = {
   fetchUserCart,
   updateCartProductQty,
   addCartProduct,
-  deleteCartProduct,
+  deleteCartProduct
 }

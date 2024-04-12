@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const fetchUser = async (user_id) => {
     const SQL = `
-      SELECT * FROM users;
+      SELECT * FROM users WHERE id=$1
     `;
     const result = await client.query(SQL,[user_id]);
     return result.rows;

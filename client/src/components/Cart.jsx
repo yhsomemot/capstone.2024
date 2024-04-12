@@ -40,9 +40,9 @@ export function Cart({ token }) {
     }, [token]);
 
 
-    async function updateCartProductQty() {
+    async function updateCartProductQty(bookId) {
         try {
-            const response = await fetch(`${API_URL}/api/mycart`, {
+            const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +56,8 @@ export function Cart({ token }) {
         }
     }
 
-    async function deleteCartProduct() {
+    async function deleteCartProduct(bookId) {
+        console.log(bookId)
         try {
             const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
                 method: "DELETE",
@@ -67,9 +68,28 @@ export function Cart({ token }) {
             });
             return await response.json();
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
+
+    // async function deleteItem(cartItemId) {
+    //     console.log(cartItems);
+    //     try {
+    //       const response = await fetch(`${API_URL}/mycart/cartitems/${cartItemId}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //       });
+    //       if (!response.ok) {
+    //         throw new Error("Item could not be deleted.");
+    //       }
+    //       await getCartItems();
+    //       await getTotalPrice();
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
 
 
     return (
@@ -116,11 +136,11 @@ export function Cart({ token }) {
                                 <td>{cart.name}</td>
                                 <td>{cart.qty}</td>
                                 <td>
-                                    <button onClick={async () => await deleteCartProduct(carts.id)}>
+                                    <button onClick={async () => await deleteCartProduct(cart.id)}>
                                         delete </button>
                                 </td>
                                 <td>
-                                    <button onClick={async () => await updateCartProductQty(carts.id)}> add </button>
+                                    <button onClick={async () => await updateCartProductQty(cart.id)}> add </button>
                                 </td>
                             </tr>
                         )
