@@ -8,15 +8,12 @@ const router = express.Router();
 
 //route: api/checkout
 
-router.post("/", isLoggedIn, async(req, res, next)=> {
-    try{
-        const orderId = await fetchUsersOrders(req,user.id);
-        res.send(await checkoutCart({
-            order_id: orderId.id
-        }))
-    } catch(ex) {
-        next(ex);
+router.delete("/checkout", isLoggedIn, async (req, res, next) => {
+    try {
+      res.status(204).send(await checkout(req.user.id))
+    } catch (ex) {
+      next(ex);
     }
-});
+  })
 
 module.exports = router;

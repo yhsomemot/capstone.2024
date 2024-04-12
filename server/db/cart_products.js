@@ -40,11 +40,19 @@ const deleteCartProduct = async (user_id, book_id) => {
   await client.query(SQL, [user_id, book_id]);
 };
 
+const checkout = async (user_id) => {
+  const SQL = `
+  DELETE FROM cart_products WHERE user_id=$1
+  `;
+  await client.query(SQL, [user_id]);
+};
+
 //create product?
 
 module.exports = {
   fetchUserCart,
   updateCartProductQty,
   addCartProduct,
-  deleteCartProduct
+  deleteCartProduct,
+  checkout
 }

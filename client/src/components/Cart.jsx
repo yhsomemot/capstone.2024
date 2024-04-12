@@ -147,7 +147,7 @@ export function Cart({ token }) {
                     })}
                 </tbody>
             </table>
-                <button onClick={() => navigate("/checkout")}>Check out</button>   </div>
+                <button onClick={async () => await checkout()}>Check out</button>   </div>
 
             )}
 

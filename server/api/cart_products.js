@@ -4,6 +4,7 @@ const {
   updateCartProductQty,
   addCartProduct,
   deleteCartProduct,
+  checkout
 } = require("../db/cart_products.js")
 const { isLoggedIn } = require("../db/auth.js")
 
@@ -53,6 +54,8 @@ router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
     next(ex);
   }
 });
+
+
 // app.delete('/api/product/:id', isLoggedIn, isAdmin, async (req, res, next) => {
 //   try {
 //     res.status(204).send(await deleteProduct({id: req.params.id}));
