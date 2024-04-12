@@ -11,13 +11,17 @@ import { GenreNav } from './components/GenreNav'
 import { SingleGenre } from './components/SingleGenre'
 import { FilterContext } from './components/FilterContext'
 import { Cart } from './components/Cart'
+import { OrderHistory } from './components/OrderHistory'
+import { Checkout } from './components/Checkout'
+import { UpdateProfile } from './components/UpdateProfile'
 
 
 function App() {
   // const [login, setLogin] = useState("");
   // const [register, setRegister] = useState("");
   const [filter, setFilter] = useState("");
-  const [token, setToken] = useState()
+  const [token, setToken] = useState();
+  // const [user, setUser] = useState("") 
 
   return (
     <FilterContext.Provider value={[filter, setFilter]}>
@@ -33,9 +37,12 @@ function App() {
           <Route path="/books/:bookId" element={<SingleBook token={token} />} />
           <Route path="/register" element={<Register token={token} setToken={setToken} />} />
           <Route path="/login" element={<Login token={token} setToken={setToken} />} />
-          <Route path="/account" element={<Account token={token} />} />
+          <Route path="/account" element={<Account token={token} setToken={setToken}  />} />
           <Route path="/books/genre/:bookId" element={<SingleGenre />} />
-          <Route path="/cart" element={<Cart token={token} />} />
+          <Route path="/cart" element={<Cart token={token} setToken={setToken} />} />
+          <Route path="/orderhistory" element={<OrderHistory />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/updateprofile" element={<UpdateProfile />} />
         </Routes>
       </div>
     </FilterContext.Provider>

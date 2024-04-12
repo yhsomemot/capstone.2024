@@ -11,18 +11,17 @@ const cors = require('cors')
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const cartRouter = require("./api/cart_products.js");
-// const orderRouter = require("./api/orders");
-//const checkoutRouter = require("./api/checkout")
+const checkoutRouter = require("./api/checkouts")
 
 
 const app = express();
+
 app.use(cors())
 app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/mycart", cartRouter);
-// app.use("/api/orders", orderRouter);
-//app.use("/api/checkout", checkoutRouter);
+app.use("/api/checkout", checkoutRouter);
 
 
 
@@ -34,16 +33,17 @@ const init = async () => {
     await createTables();
     console.log('tables created');
 
-    await seedGenre();
+    // await seedGenre();
     // console.log("genre", await fetchGenre())
 
-    // await seedTable();
-    // console.log("carts", await fetchUserOrder())
+    await seedTable();
+    console.log("carts", await fetchUserCart())
+    // console.log("books", await fetchBooks())
 
-    await seedUsers();
+    // await seedUsers();
     // console.log("users", await fetchUsers());
 
-    await seedBooks();
+    // await seedBooks();
     // console.log("books", await fetchBooks());
 
   

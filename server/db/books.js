@@ -35,8 +35,6 @@ const fetchSingleBook = async ({id}) => {
     return result.rows[0];
   };
 
-
-
 const createGenre = async ({ name }) => {
     const SQL = `
       INSERT INTO genre(name) VALUES($1) RETURNING *
