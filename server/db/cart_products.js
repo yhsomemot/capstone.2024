@@ -22,6 +22,7 @@ const addCartProduct = async ({ user_id, book_id, qty }) => {
   return result.rows[0];
 };
 
+//add and substract?
 const updateCartProductQty = async ({ qty, book_id, user_id }) => {
   const SQL = `
       UPDATE cart_products

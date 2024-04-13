@@ -50,7 +50,7 @@ export function Account({ token, setToken }) {
             <h2> Links:</h2>
             {errorMessage && <h3>{errorMessage}</h3>}
             {successMessage && <h3>{successMessage}</h3>}
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout}>Logout </button>
             {/* <button onClick={logout}>Logout {auth.email}</button> */}
             <br />
 
