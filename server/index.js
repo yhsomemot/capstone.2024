@@ -6,13 +6,13 @@ const { fetchBooks } = require("./db/books.js");
 const { fetchUserCart } = require("./db/cart_products.js");
 const { fetchGenre } = require("./db/books.js");
 
-const cors = require('cors')
+const cors = require('cors');
+const path = require('path');
 
 const userRouter = require("./api/users");
 const bookRouter = require("./api/books");
 const cartRouter = require("./api/cart_products.js");
 const checkoutRouter = require("./api/checkouts")
-
 
 const app = express();
 
@@ -22,6 +22,10 @@ app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/mycart", cartRouter);
 app.use("/api/checkout", checkoutRouter);
+
+const path = require('path');
+app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '../client/dist/index.html')));
+app.use('/assets', express.static(path.join(__dirname, '../client/dist/assets'))); 
 
 
 
