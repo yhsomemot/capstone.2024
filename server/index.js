@@ -15,6 +15,9 @@ const cartRouter = require("./api/cart_products.js");
 const checkoutRouter = require("./api/checkouts")
 
 const app = express();
+const path = require('path');
+app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '../client/dist/index.html')));
+app.use('/assets', express.static(path.join(__dirname, '../client/dist/assets'))); 
 
 app.use(cors())
 app.use(express.json());
@@ -23,9 +26,7 @@ app.use("/api/books", bookRouter);
 app.use("/api/mycart", cartRouter);
 app.use("/api/checkout", checkoutRouter);
 
-const path = require('path');
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '../client/dist/index.html')));
-app.use('/assets', express.static(path.join(__dirname, '../client/dist/assets'))); 
+
 
 
 
