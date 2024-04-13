@@ -34,12 +34,15 @@ export function SingleBook({ token }) {
                     qty: 1
                 })
             });
-            const result = await response.json();
+
             setSuccessMessage("Added To Cart!");
+            return await response.json();
+            
         } catch (error) {
             setError(error.message);
         }
     }
+// have an input feild to change qty...
 
     return (
         <div>
@@ -53,7 +56,7 @@ export function SingleBook({ token }) {
             {book.inventory}
 
             <div id="singlebuttons">
-                {/* <button onClick={async () => await handleClick(book.id)}>Check Out</button> */}
+                {successMessage && <h3>{successMessage}</h3>}
                 <button onClick={async () => await handleClick(book.id)}>add to cart</button>
             </div>
 

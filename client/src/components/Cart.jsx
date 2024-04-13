@@ -86,6 +86,7 @@ export function Cart({ token }) {
                                     <button onClick={async () => await deleteCartProduct(cart.id)}>
                                         delete </button>
                                 </td>
+                                {/* have a drop down or have a field input */}
                                 <td>
                                     <button onClick={async () => await updateCartProductQty(cart.id)}> add </button>
                                 </td>
