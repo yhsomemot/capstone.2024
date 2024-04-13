@@ -1,11 +1,10 @@
-// make a check out page that takes in the user's dummy billing information.
-// have a confirmation page?
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { API_URL } from "../App";
 
 export function Checkout({ token }) {
     const [state, setState] =useState("");
     const [card, setCard] = useState("");
+    const [successMessage, setSuccessMessage] =useState("")
 
     //show list of books
     //have sum of books
@@ -24,7 +23,10 @@ export function Checkout({ token }) {
                     Authorization: `Bearer ${token}`
                 }
             });
+            setSuccessMessage("Thank you for shopping at the Bookstore!")
             return await response.json();
+           
+
         } catch (error) {
             console.log(error);
         }
@@ -44,11 +46,9 @@ export function Checkout({ token }) {
                     <input type="text" value={card} placeholder="Credit Card Number" onChange={(e) => { setCard(e.target.value) }} />
                 </label>
                 <br />
-                {/* Thank you for shopping at bookstore! */}
+                {successMessage && <h3>{successMessage}</h3>}
                 <button onClick={submitCheckout} disabled={!state || !card}>Check Out</button>
             </form>
-
-            {/* <button onClick={async () => await checkout()}>Check out</button> */}
         </>
     )
 }

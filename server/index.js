@@ -15,6 +15,7 @@ const checkoutRouter = require("./api/checkouts")
 
 const app = express();
 
+//for deployment
 const path = require('path');
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '../client/dist/index.html')));
 app.use('/assets', express.static(path.join(__dirname, '../client/dist/assets'))); 
