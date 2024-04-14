@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
-//get order
-//post order
-//delete order
-
 export function Cart({ token }) {
     const [carts, setCarts] = useState([]);
     // const { bookId } = useParams();
     const navigate = useNavigate();
+    const [qty, setQty] = useState("")
 
 
     useEffect(() => {
@@ -32,7 +29,10 @@ export function Cart({ token }) {
         fetchUserCart();
     }, [token]);
 
-
+    const submitQty = ev => {
+        ev.preventDefault();
+        updateCartProductQty({qty})
+    }
     async function updateCartProductQty(bookId) {
         try {
             const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
@@ -66,6 +66,7 @@ export function Cart({ token }) {
     }
 
 
+
     return (
         <>
             <h1>My cart</h1>
@@ -83,12 +84,14 @@ export function Cart({ token }) {
                                 <td>{cart.name}</td>
                                 <td>{cart.qty}</td>
                                 <td>
+                                    <form action="">
+                                        <input type="number" placeholder="qty" min="1" max= "10" onChange={((e) => { setQty(e.target.value) })}/>
+                                    </form>
+                                </td>
+                                <td><button onClick={submitQty}> add </button></td>                             
+                                <td>
                                     <button onClick={async () => await deleteCartProduct(cart.id)}>
                                         delete </button>
-                                </td>
-                                {/* have a drop down or have a field input */}
-                                <td>
-                                    <button onClick={async () => await updateCartProductQty(cart.id)}> add </button>
                                 </td>
                             </tr>
                         )
