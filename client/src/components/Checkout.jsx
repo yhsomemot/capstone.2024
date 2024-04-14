@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../App";
 
 export function Checkout({ token }) {
     const [state, setState] =useState("");
     const [card, setCard] = useState("");
     const [successMessage, setSuccessMessage] =useState("")
+    const [carts, setCarts] =useState([])
 
-    //show list of books
     //have sum of books
     const submitCheckout = ev => {
         ev.preventDefault();
         checkout({ state, card });
 
     }
+
+    useEffect(() => {
+        async function fetchUserCart() {
+            try {
+                const response = await fetch(`${API_URL}/api/mycart`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const result = await response.json();
+                setCarts(result);
+                console.log("cart", result)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserCart();
+    }, [token]);
+
 
     async function checkout() {
         try {
@@ -35,6 +56,14 @@ export function Checkout({ token }) {
     return (
         <>
             <h1>Checkout page</h1>
+            {carts.map((cart)=> {
+                return (
+                    <div key={cart.id}>
+                        <h3>{cart.name}</h3>
+                        <h3>{cart.qty}</h3>
+                    </div>
+                )
+            })}
 
             <form>
                 <label></label>
