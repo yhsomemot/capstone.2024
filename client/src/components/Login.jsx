@@ -14,29 +14,7 @@ export function Login({ token, setToken }) {
         login({ email, password });
 
     }
-    // useEffect(() => {
-    //     attemptLoginWithToken();
-    // }, []);
-
-    // const attemptLoginWithToken = async () => {
-    //     console.log("token " + token)
-    //     if (token) {
-    //         const response = await fetch(`${API_URL}/api/users/me`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-    //         const json = await response.json();
-    //         console("json", json)
-    //         if (response.ok) {
-    //             setToken(json);
-    //         }
-    //         else {
-    //             window.localStorage.removeItem('token');
-    //         }
-    //     }
-    // };
-
+   
     const login = async (credentials) => {
         console.log("token", token)
         const response = await fetch(`${API_URL}/api/users/login`, {
@@ -50,7 +28,6 @@ export function Login({ token, setToken }) {
         if (response.ok) {
             window.localStorage.setItem('token', result.token);
             setToken(result.token)
-            // attemptLoginWithToken();
             setSuccessMessage("Logged in")
         }
         else {

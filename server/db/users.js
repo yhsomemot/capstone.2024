@@ -24,6 +24,7 @@ const createUser = async ({ email, password, address, payment_info, is_admin }) 
     const result = await client.query(SQL, [uuid.v4(), email, await bcrypt.hash(password, 5), address, payment_info, is_admin]);
     return result.rows[0];
   };
+
 const updateUser = async ({ email, password, address, payment_info, is_admin, id }) => {
     const SQL = `
       UPDATE users
@@ -34,6 +35,7 @@ const updateUser = async ({ email, password, address, payment_info, is_admin, id
     const result = await client.query(SQL,[email, await bcrypt.hash(password, 5), address, payment_info, is_admin, id ]);
     return result.rows[0];
   };
+  
 const deleteUser = async ({id}) => {
     const SQL = `
     DELETE FROM users WHERE id = $1
