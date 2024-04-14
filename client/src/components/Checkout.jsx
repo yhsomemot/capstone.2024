@@ -61,18 +61,35 @@ export function Checkout({ token }) {
                     <div key={cart.id}>
                         <h3>{cart.name}</h3>
                         <h3>{cart.qty}</h3>
+                        <h3>{cart.price}</h3>
                     </div>
                 )
             })}
 
             <form>
-                <label></label>
+            <label>
+                    <input type="text" placeholder="Last Name" />
+                </label>
                 <label>
-                    <input type="text" value={state} placeholder="State" onChange={(e) => { setState(e.target.value) }} />
+                    <input type="text" placeholder="First Name" />
                 </label>
                 <br />
                 <label>
-                    <input type="text" value={card} placeholder="Credit Card Number" onChange={(e) => { setCard(e.target.value) }} />
+                    <input type="text" placeholder="Address" maxLength="60" size="60" />
+                </label>
+                <br />
+                <label>
+                    <input type="text" placeholder="City"/>
+                </label>
+                <label>
+                    <input type="text" placeholder="State"/>
+                </label>
+                <label>
+                    <input type="text" value={state} placeholder="zip code"  onChange={(e) => { setState(e.target.value) }}/>
+                </label>
+                <br />
+                <label>
+                    <input type="text" value={card} placeholder="Credit Card Number" onChange={(e) => { setCard(e.target.value) }} maxLength="17" size="20" />
                 </label>
                 <br />
                 {successMessage && <h3>{successMessage}</h3>}
