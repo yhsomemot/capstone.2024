@@ -41,7 +41,9 @@ export function Cart({ token }) {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify(),
+                body: JSON.stringify({
+                    qty: `${qty}`
+                }),
             });
             return await response.json();
         } catch (error) {
@@ -85,7 +87,7 @@ export function Cart({ token }) {
                                 <td>{cart.qty}</td>
                                 <td>
                                     <form action="">
-                                        <input type="number" placeholder="qty" min="1" max= "10" onChange={((e) => { setQty(e.target.value) })}/>
+                                        <input type="number" placeholder="qty" min="1" max= "10"  value= {qty} onChange={((e) => { setQty(e.target.value) })}/>
                                     </form>
                                 </td>
                                 <td><button onClick={submitQty}> add </button></td>                             
