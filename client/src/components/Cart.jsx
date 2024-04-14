@@ -7,6 +7,7 @@ export function Cart({ token }) {
     // const { bookId } = useParams();
     const navigate = useNavigate();
     const [qty, setQty] = useState("")
+    // let { bookId } = useParams()
 
 
     useEffect(() => {
@@ -29,11 +30,9 @@ export function Cart({ token }) {
         fetchUserCart();
     }, [token]);
 
-    const submitQty = ev => {
-        ev.preventDefault();
-        updateCartProductQty({qty})
-    }
-    async function updateCartProductQty(bookId) {
+
+
+    async function updateAddCart(bookId) {
         try {
             const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
                 method: "PUT",
@@ -41,7 +40,27 @@ export function Cart({ token }) {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify(),
+                body: JSON.stringify({
+                      qty: 1,
+                }),
+            });
+            return await response.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function updateMinusCart(bookId) {
+        try {
+            const response = await fetch(`${API_URL}/api/mycart/${bookId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                      qty: -1,
+                }),
             });
             return await response.json();
         } catch (error) {
@@ -65,6 +84,11 @@ export function Cart({ token }) {
         }
     }
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    // }
+
 
 
     return (
@@ -83,12 +107,14 @@ export function Cart({ token }) {
                             <tr key={cart.id}>
                                 <td>{cart.name}</td>
                                 <td>{cart.qty}</td>
-                                <td>
+                                {/* <td>
                                     <form action="">
-                                        <input type="number" placeholder="qty" min="1" max= "10" onChange={((e) => { setQty(e.target.value) })}/>
+                                        <input type="number" placeholder="qty" min="1" max="10" />
                                     </form>
-                                </td>
-                                <td><button onClick={submitQty}> add </button></td>                             
+                                </td> */}
+                                {/* <td><button onClick={submitQty(setQty)}> add </button></td> */}
+                                <td><button onClick={async () => await updateAddCart(cart.id)}>+1</button></td>
+                                <td><button onClick={async () => await updateMinusCart(cart.id)}>-1</button></td>
                                 <td>
                                     <button onClick={async () => await deleteCartProduct(cart.id)}>
                                         delete </button>

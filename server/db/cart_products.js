@@ -22,11 +22,10 @@ const addCartProduct = async ({ user_id, book_id, qty }) => {
   return result.rows[0];
 };
 
-//add and substract?
-const updateCartProductQty = async ({ qty, book_id, user_id }) => {
+const UpdateAddCartProduct = async ({ qty, book_id, user_id }) => {
   const SQL = `
       UPDATE cart_products
-      SET qty=$1
+      SET qty=$1 + qty
       WHERE book_id=$2 AND user_id=$3
       RETURNING *
   `;
@@ -48,12 +47,10 @@ const checkout = async (user_id) => {
   await client.query(SQL, [user_id]);
 };
 
-//create product?
-
 module.exports = {
   fetchUserCart,
-  updateCartProductQty,
   addCartProduct,
+  UpdateAddCartProduct,
   deleteCartProduct,
   checkout
 }
