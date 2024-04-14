@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   fetchUserCart,
-  updateCartProductQty,
+  UpdateAddCartProduct,
   addCartProduct,
   deleteCartProduct,
   checkout
@@ -36,7 +36,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
 router.put("/:bookId", isLoggedIn, async (req, res, next) => {
   try {
-    res.status(201).send(await updateCartProductQty({
+    res.status(201).send(await UpdateAddCartProduct({
       qty: req.body.qty,
       book_id: req.params.bookId,
       user_id: req.user.id
@@ -46,36 +46,6 @@ router.put("/:bookId", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// app.put("/api/myaccount", isLoggedIn, async (req, res, next) => {
-//   try {
-//     res.status(201).send(await updateUser({
-//       firstName: req.body.firstName,
-//       lastName: req.body.lastName,
-//       phoneNumber: req.body.phoneNumber,
-//       id: req.user.id
-//     }));
-//   } catch (ex) {
-//     next(ex);
-//   }
-// });
-
-// app.put("/api/mycart/cartitems/:cartitemsId", isLoggedIn, async (req, res, next) => {
-//   try {
-//     const cartId = await seeCart(req.user.id);
-//     // if not cart exists create a new cart
-//     if (!cartId){
-//       await createCart(req.user.id);
-//       cartId = await seeCart(req.user.id);
-//     }
-//     res.send(await changeQuantity({
-//       quantity: req.body.quantity,
-//       product_id: req.params.cartitemsId,
-//       cart_id: cartId.id,
-//     }));
-//   } catch (ex) {
-//     next(ex);
-//   }
-// });
 
 router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
   try {
@@ -85,12 +55,4 @@ router.delete("/:bookId", isLoggedIn, async (req, res, next) => {
   }
 });
 
-
-// app.delete('/api/product/:id', isLoggedIn, isAdmin, async (req, res, next) => {
-//   try {
-//     res.status(204).send(await deleteProduct({id: req.params.id}));
-//   } catch (ex) {
-//     next(ex);
-//   }
-// });
 module.exports = router;
