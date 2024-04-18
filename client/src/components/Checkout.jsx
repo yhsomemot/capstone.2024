@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../App";
 
 export function Checkout({ token }) {
     const [state, setState] =useState("");
     const [card, setCard] = useState("");
     const [successMessage, setSuccessMessage] =useState("")
+    const [carts, setCarts] =useState([])
 
-    //show list of books
     //have sum of books
     const submitCheckout = ev => {
         ev.preventDefault();
         checkout({ state, card });
 
     }
+
+    useEffect(() => {
+        async function fetchUserCart() {
+            try {
+                const response = await fetch(`${API_URL}/api/mycart`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const result = await response.json();
+                setCarts(result);
+                console.log("cart", result)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserCart();
+    }, [token]);
+
 
     async function checkout() {
         try {
@@ -35,15 +56,40 @@ export function Checkout({ token }) {
     return (
         <>
             <h1>Checkout page</h1>
+            {carts.map((cart)=> {
+                return (
+                    <div key={cart.id}>
+                        <h3>{cart.name}</h3>
+                        <h3>{cart.qty}</h3>
+                        <h3>{cart.price}</h3>
+                    </div>
+                )
+            })}
 
             <form>
-                <label></label>
+            <label>
+                    <input type="text" placeholder="Last Name" />
+                </label>
                 <label>
-                    <input type="text" value={state} placeholder="State" onChange={(e) => { setState(e.target.value) }} />
+                    <input type="text" placeholder="First Name" />
                 </label>
                 <br />
                 <label>
-                    <input type="text" value={card} placeholder="Credit Card Number" onChange={(e) => { setCard(e.target.value) }} />
+                    <input type="text" placeholder="Address" maxLength="60" size="60" />
+                </label>
+                <br />
+                <label>
+                    <input type="text" placeholder="City"/>
+                </label>
+                <label>
+                    <input type="text" placeholder="State"/>
+                </label>
+                <label>
+                    <input type="text" value={state} placeholder="zip code"  onChange={(e) => { setState(e.target.value) }}/>
+                </label>
+                <br />
+                <label>
+                    <input type="text" value={card} placeholder="Credit Card Number" onChange={(e) => { setCard(e.target.value) }} maxLength="17" size="20" />
                 </label>
                 <br />
                 {successMessage && <h3>{successMessage}</h3>}

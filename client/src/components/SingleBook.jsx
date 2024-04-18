@@ -37,12 +37,12 @@ export function SingleBook({ token }) {
 
             setSuccessMessage("Added To Cart!");
             return await response.json();
-            
+
         } catch (error) {
             setError(error.message);
         }
     }
-// have an input feild to change qty...
+    // have an input feild to change qty...
 
     return (
         <div>
@@ -52,9 +52,7 @@ export function SingleBook({ token }) {
                 <img className="singlebookImg" id="singlebookItem" src={book.coverimage} />
                 <p id="singlebookItem">{book.description}</p>
             </div>
-
-            {book.inventory}
-
+            <h3> ${book.price}</h3>
             <div id="singlebuttons">
                 {successMessage && <h3>{successMessage}</h3>}
                 <button onClick={async () => await handleClick(book.id)}>add to cart</button>
